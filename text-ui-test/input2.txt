@@ -1,0 +1,13 @@
+todo
+todo laze
+deadline laze
+deadline laze /by tomorrow
+event laze /from
+event laze /from now /to later
+mark 2
+mark 1
+unmark 2
+mark 5
+unmark 6
+list
+bye

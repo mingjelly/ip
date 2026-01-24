@@ -10,7 +10,7 @@ REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
 
 REM no error here, errorlevel == 0
-SET tests = 1
+SET tests=1,2
 
 FOR %%i IN (%tests%) DO (
     echo Running test %%i
@@ -19,7 +19,7 @@ FOR %%i IN (%tests%) DO (
     REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
     java -classpath ..\bin Jellicent < input%%i.txt > ACTUAL%%i.TXT
 
-    FC ACTUAL%%i.TXT EXPECTED%%i.TXT >  nul
+    FC ACTUAL%%i.TXT EXPECTED%%i.TXT
     IF ERRORLEVEL 1 (
         echo Test%%i FAILED
     ) ELSE (
