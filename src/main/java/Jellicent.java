@@ -2,6 +2,17 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Jellicent {
+    public enum CommandType {
+        LIST,
+        BYE,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
+
     public static void main(String[] args) {
         String name = "Jellicent";
         System.out.println("----------------------------------------------------------------------");
@@ -11,19 +22,25 @@ public class Jellicent {
 
         ArrayList<Task> tasks = new ArrayList<>();
 
+        CommandType keyCommand;
+
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             String[] commands = command.split(" ", 2);
-            String keyCommand = commands[0];
-            System.out.println("----------------------------------------------------------------------");
-            if (keyCommand.equals("bye")) {
-                System.out.println("Bye! Hope to see you again!");
-                System.out.println("----------------------------------------------------------------------");
-                break;
-            }
             try {
+                System.out.println("----------------------------------------------------------------------");
+                try {
+                    keyCommand = CommandType.valueOf(commands[0].toUpperCase());
+                } catch (IllegalArgumentException iae){
+                    throw new JellicentException("Oops!!! I'm sorry, but I don't know what that means :<");
+                }
                 switch (keyCommand) {
-                    case "list": {
+                    case BYE: {
+                        System.out.println("Bye! Hope to see you again!");
+                        System.out.println("----------------------------------------------------------------------");
+                        return;
+                    }
+                    case LIST: {
                         System.out.println("Here are the tasks in your list:");
                         for (int i = 0; i < tasks.size(); i++) {
                             Task currTask = tasks.get(i);
@@ -31,7 +48,7 @@ public class Jellicent {
                         }
                         break;
                     }
-                    case "mark": {
+                    case MARK: {
                         // Assumes that what comes after is a number
                         if (commands.length == 1) {
                             throw new JellicentException("Oops! Mark requires an index number!");
@@ -52,7 +69,7 @@ public class Jellicent {
 
                         break;
                     }
-                    case "unmark": {
+                    case UNMARK: {
                         if (commands.length == 1) {
                             throw new JellicentException("Oops! Mark requires an index number!");
                         } else {
@@ -71,7 +88,7 @@ public class Jellicent {
                         }
                         break;
                     }
-                    case "delete": {
+                    case DELETE: {
                         if (commands.length == 1) {
                             throw new JellicentException("Oops! Delete requires an index number!");
                         } else {
@@ -95,7 +112,7 @@ public class Jellicent {
                         break;
 
                     }
-                    case "todo": {
+                    case TODO: {
                         if (commands.length == 1) {
                             throw new JellicentException("OOPS! The description of a todo cannot be empty.");
                         } else {
@@ -112,7 +129,7 @@ public class Jellicent {
                         }
                         break;
                     }
-                    case "deadline": {
+                    case DEADLINE: {
                         if (commands.length == 1) {
                             throw new JellicentException("OOPS! The description of a deadline cannot be empty!");
                         } else {
@@ -134,7 +151,7 @@ public class Jellicent {
                         }
                         break;
                     }
-                    case "event": {
+                    case EVENT: {
                         if (commands.length == 1) {
                             throw new JellicentException("OOPS! The description of an event cannot be empty!");
                         } else {
