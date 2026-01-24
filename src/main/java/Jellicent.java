@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Jellicent {
     public static void main(String[] args) {
@@ -8,20 +9,24 @@ public class Jellicent {
         Scanner scanner = new Scanner(System.in);
         System.out.println("----------------------------------------------------------------------");
 
-        String command = scanner.nextLine();
-        Task[] tasks = new Task[100];
-        int taskCounter = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
-        while (!command.equals("bye")) {
+        while (scanner.hasNextLine()) {
+            String command = scanner.nextLine();
             String[] commands = command.split(" ", 2);
             String keyCommand = commands[0];
             System.out.println("----------------------------------------------------------------------");
+            if (keyCommand.equals("bye")) {
+                System.out.println("Bye! Hope to see you again!");
+                System.out.println("----------------------------------------------------------------------");
+                break;
+            }
             try {
                 switch (keyCommand) {
                     case "list": {
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < taskCounter; i++) {
-                            Task currTask = tasks[i];
+                        for (int i = 0; i < tasks.size(); i++) {
+                            Task currTask = tasks.get(i);
                             System.out.println(i+1 + ". " + currTask);
                         }
                         break;
@@ -34,14 +39,14 @@ public class Jellicent {
                             try {
                                 // 1 Not Integer, 2 Index out of bounds
                                 int markNum = Integer.parseInt(commands[1]);
-                                Task markedTask = tasks[markNum - 1];
+                                Task markedTask = tasks.get(markNum-1);
                                 markedTask.markAsDone();
                                 System.out.println("Nice! I've marked this task as done:");
                                 System.out.println(markedTask);
                             } catch (NumberFormatException nfe) {
                                 throw new JellicentException("Oops! Mark requires an integer index number!");
-                            } catch (NullPointerException npe) {
-                                throw new JellicentException("Oops! There are only " + taskCounter + " tasks in the list.");
+                            } catch (IndexOutOfBoundsException ioobe) {
+                                throw new JellicentException("Oops! There are only " + tasks.size() + " tasks in the list.");
                             }
                         }
 
@@ -54,17 +59,41 @@ public class Jellicent {
                             try {
                                 // 1 Not Integer, 2 Index out of bounds
                                 int markNum = Integer.parseInt(commands[1]);
-                                Task markedTask = tasks[markNum - 1];
+                                Task markedTask = tasks.get(markNum - 1);
                                 markedTask.markAsUndone();
                                 System.out.println("Ok. I have marked this task as not done yet:");
                                 System.out.println(markedTask);
                             } catch (NumberFormatException nfe) {
                                 throw new JellicentException("Oops! Unmark requires an integer index number!");
-                            } catch (NullPointerException npe) {
-                                throw new JellicentException("Oops! There are only " + taskCounter + " tasks in the list.");
+                            } catch (IndexOutOfBoundsException ioobe) {
+                                throw new JellicentException("Oops! There are only " + tasks.size() + " tasks in the list.");
                             }
                         }
                         break;
+                    }
+                    case "delete": {
+                        if (commands.length == 1) {
+                            throw new JellicentException("Oops! Delete requires an index number!");
+                        } else {
+                            try {
+                                // 1 Not Integer, 2 Index out of bounds
+                                int deleteNum = Integer.parseInt(commands[1]);
+                                Task deletedTask = tasks.remove(deleteNum - 1);
+                                System.out.println("Noted, I have removed this task:");
+                                System.out.println(deletedTask);
+                                if (tasks.size() == 1) {
+                                    System.out.println("Now you have " + tasks.size() + " task in the list.");
+                                } else {
+                                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                                }
+                            } catch (NumberFormatException nfe) {
+                                throw new JellicentException("Oops! Delete requires an integer index number!");
+                            } catch (IndexOutOfBoundsException ioobe) {
+                                throw new JellicentException("Oops! There are only " + tasks.size() + " tasks in the list.");
+                            }
+                        }
+                        break;
+
                     }
                     case "todo": {
                         if (commands.length == 1) {
@@ -72,14 +101,13 @@ public class Jellicent {
                         } else {
                             String taskInfo = commands[1];
                             Task newTask = new ToDo(taskInfo);
-                            tasks[taskCounter] = newTask;
+                            tasks.add(newTask);
                             System.out.println("Got it. I've added this task:");
                             System.out.println(newTask);
-                            taskCounter++;
-                            if (taskCounter == 1) {
-                                System.out.println("Now you have " + taskCounter + " task in the list.");
+                            if (tasks.size() == 1) {
+                                System.out.println("Now you have " + tasks.size() + " task in the list.");
                             } else {
-                                System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                             }
                         }
                         break;
@@ -94,14 +122,13 @@ public class Jellicent {
                                 throw new JellicentException("OOPS! A deadline requires a description and /by deadline!");
                             } else {
                                 Task newTask = new Deadline(taskInfoList[0], taskInfoList[1]);
-                                tasks[taskCounter] = newTask;
+                                tasks.add(newTask);
                                 System.out.println("Got it. I've added this task:");
                                 System.out.println(newTask);
-                                taskCounter++;
-                                if (taskCounter == 1) {
-                                    System.out.println("Now you have " + taskCounter + " task in the list.");
+                                if (tasks.size() == 1) {
+                                    System.out.println("Now you have " + tasks.size() + " task in the list.");
                                 } else {
-                                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                                 }
                             }
                         }
@@ -117,14 +144,13 @@ public class Jellicent {
                                 throw new JellicentException("OOPS! An event requires a description, /from and /to timeframe!");
                             } else {
                                 Task newTask = new Event(taskInfoList[0], taskInfoList[1], taskInfoList[2]);
-                                tasks[taskCounter] = newTask;
+                                tasks.add(newTask);
                                 System.out.println("Got it. I've added this task:");
                                 System.out.println(newTask);
-                                taskCounter++;
-                                if (taskCounter == 1) {
-                                    System.out.println("Now you have " + taskCounter + " task in the list.");
+                                if (tasks.size() == 1) {
+                                    System.out.println("Now you have " + tasks.size() + " task in the list.");
                                 } else {
-                                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                                 }
                             }
                         }
@@ -140,13 +166,9 @@ public class Jellicent {
                 System.out.println(je.getMessage());
             }
             System.out.println("----------------------------------------------------------------------");
-            command = scanner.nextLine();
-
 
         }
-        System.out.println("----------------------------------------------------------------------");
-        System.out.println("Bye! Hope to see you again!");
-        System.out.println("----------------------------------------------------------------------");
+
 
     }
 

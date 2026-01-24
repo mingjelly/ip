@@ -10,7 +10,7 @@ REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
 
 REM no error here, errorlevel == 0
-SET tests=1,2
+SET tests=1,2,3
 
 FOR %%i IN (%tests%) DO (
     echo Running test %%i
