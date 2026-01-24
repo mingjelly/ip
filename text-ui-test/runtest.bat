@@ -8,14 +8,24 @@ if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\*.java
-IF ERRORLEVEL 1 (
-    echo ********** BUILD FAILURE **********
-    exit /b 1
-)
+
 REM no error here, errorlevel == 0
+SET tests = 1
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+FOR %%i IN (%tests%) DO (
+    echo Running test %%i
+    if exist ACTUAL%%i.TXT del ACTUAL%%i.TXT
 
-REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+    REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+    java -classpath ..\bin Jellicent < input%%i.txt > ACTUAL%%i.TXT
+
+    FC ACTUAL%%i.TXT EXPECTED%%i.TXT >  nul
+    IF ERRORLEVEL 1 (
+        echo Test%%i FAILED
+    ) ELSE (
+        echo Test%%i PASSED
+    )
+)
+
+echo ALL TESTS COMPLETED.
+pause
