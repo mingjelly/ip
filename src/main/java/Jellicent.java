@@ -21,7 +21,7 @@ public class Jellicent {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < taskCounter; i++) {
                         Task currTask = tasks[i];
-                        System.out.println(i + 1 + ".[" + currTask.getStatusIcon() + "] " + currTask.description);
+                        System.out.println(i+1 + ". " + currTask);
                     }
                     break;
                 }
@@ -42,11 +42,49 @@ public class Jellicent {
                     System.out.println(markedTask);
                     break;
                 }
-                default:
-                    Task newTask = new Task(command);
+                case "todo": {
+                    String taskInfo = commands[1];
+                    Task newTask = new ToDo(taskInfo);
                     tasks[taskCounter] = newTask;
-                    System.out.println("added: " + command);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newTask);
                     taskCounter++;
+                    if (taskCounter == 1) {
+                        System.out.println("Now you have " + taskCounter + " task in the list.");
+                    } else {
+                        System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    }
+                    break;
+                }
+                case "deadline": {
+                    String taskInfo = commands[1];
+                    String[] taskInfoList = taskInfo.split(" /by ");
+                    Task newTask = new Deadline(taskInfoList[0], taskInfoList[1]);
+                    tasks[taskCounter] = newTask;
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newTask);
+                    taskCounter++;
+                    if (taskCounter == 1) {
+                        System.out.println("Now you have " + taskCounter + " task in the list.");
+                    } else {
+                        System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    }                    break;
+                }
+                case "event": {
+                    String taskInfo = commands[1];
+                    String[] taskInfoList = taskInfo.split(" /from | /to ");
+                    Task newTask = new Event(taskInfoList[0], taskInfoList[1], taskInfoList[2]);
+                    tasks[taskCounter] = newTask;
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newTask);
+                    taskCounter++;
+                    if (taskCounter == 1) {
+                        System.out.println("Now you have " + taskCounter + " task in the list.");
+                    } else {
+                        System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    }
+                    break;
+                }
             }
             System.out.println("----------------------------------------------------------------------");
             command = scanner.nextLine();
