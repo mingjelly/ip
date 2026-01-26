@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Jellicent {
     public enum CommandType {
@@ -28,8 +30,8 @@ public class Jellicent {
         }
 
         try (FileWriter fileWriter = new FileWriter(file)) {
-            for (int i = 0; i < tasks.size(); i++) {
-                fileWriter.write(tasks.get(i).toFileString() + "\n");
+            for (Task task: tasks) {
+                fileWriter.write(task.toFileString() + "\n");
             }
         }
     }
@@ -44,14 +46,14 @@ public class Jellicent {
 
         Task task;
         try {
-            switch (dataArray[0]) {
-                case "T": task = new ToDo(dataArray[2]); break;
-                case "D": task = new Deadline(dataArray[2], dataArray[3]); break;
-                case "E": task = new Event(dataArray[2], dataArray[3], dataArray[4]);
-                default: throw new IllegalArgumentException("Unknown Task Type: " + dataArray[0]);
-            }
+            task = switch (dataArray[0]) {
+                case "T" -> new ToDo(dataArray[2]);
+                case "D" -> new Deadline(dataArray[2], dataArray[3]);
+                case "E" -> new Event(dataArray[2], dataArray[3], dataArray[4]);
+                default -> throw new IllegalArgumentException("Unknown Task Type: " + dataArray[0]);
+            };
         }
-        catch (ArrayIndexOutOfBoundsException aiofbe) {
+        catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new IllegalArgumentException("Saved data is in the wrong format!");
         }
         if ("1".equals(dataArray[1])) {
@@ -85,7 +87,6 @@ public class Jellicent {
     }
 
     public static void main(String[] args) {
-
         String filePath;
         if (args.length > 0) {
             filePath = args[0];
@@ -204,8 +205,18 @@ public class Jellicent {
                             if (taskInfoList.length == 1) {
                                 throw new JellicentException("OOPS! A deadline requires a description and /by deadline!");
                             } else {
-                                Task newTask = new Deadline(taskInfoList[0], taskInfoList[1]);
-                                tasks.add(newTask);
+                                String description = taskInfoList[0];
+                                String byString = taskInfoList[1];
+
+                                LocalDateTime byDateTime;
+
+                                try {
+                                    byDateTime = LocalDateTime.parse(byString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                                }
+                                catch (DateTimeParseException dtpe) {
+                                    throw new IllegalArgumentException("Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
+                                }
+                                Task newTask = new Deadline(description, byDateTime);
                                 addTask(tasks, newTask);
                             }
                         }
@@ -220,7 +231,22 @@ public class Jellicent {
                             if (taskInfoList.length < 3) {
                                 throw new JellicentException("OOPS! An event requires a description, /from and /to timeframe!");
                             } else {
-                                Task newTask = new Event(taskInfoList[0], taskInfoList[1], taskInfoList[2]);
+                                String description = taskInfoList[0];
+                                String fromString = taskInfoList[1];
+                                String toString = taskInfoList[2];
+
+                                LocalDateTime fromDateTime;
+                                LocalDateTime toDateTime;
+
+                                try {
+                                    fromDateTime = LocalDateTime.parse(fromString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                                    toDateTime = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                                }
+                                catch (DateTimeParseException dtpe) {
+                                    throw new IllegalArgumentException("Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
+                                }
+
+                                Task newTask = new Event(description, fromDateTime, toDateTime);
                                 addTask(tasks, newTask);
                             }
                         }
@@ -232,7 +258,7 @@ public class Jellicent {
                 }
                 saveListDataIntoFile(filePath, tasks);
 
-            } catch (JellicentException | IOException je){
+            } catch (JellicentException | IOException | IllegalArgumentException je){
                 System.out.println(je.getMessage());
             }
             System.out.println("----------------------------------------------------------------------");

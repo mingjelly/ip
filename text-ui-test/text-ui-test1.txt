@@ -1,4 +1,6 @@
-T|0|borrow book
-D|0|return book|Sunday
-D|0|return book|Sunday
-E|0|project meeting|Mon 2pm|4pm
+T|1|borrow book
+T|0|laze
+T|0|laze
+T|0|laze
+D|1|laze|2019/10/20 12:00
+E|0|laze|2019/10/20 12:00|2020/10/20 12:00
