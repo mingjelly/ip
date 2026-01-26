@@ -1,6 +1,2 @@
-T|0|laze
-D|0|laze|tomorrow
-D|0|laze|tomorrow
-T|0|eat food
-T|0|play soccer
-T|0|play piano
+D|0|laze|2019/10/20 12:00
+E|0|laze|2019/10/20 12:00|2020/10/20 12:00

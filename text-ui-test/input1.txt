@@ -1,6 +1,15 @@
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo
+todo laze
+deadline laze
+deadline laze /by tomorrow
+deadline laze /by 20/10/2019 12:00
+event laze /from
+event laze /from now /to later
+event laze /from 20/10/2019 12:00 /to 20/10/2020 12:00
+mark 2
+mark 1
+unmark 2
+mark 5
+unmark 6
 list
 bye
-

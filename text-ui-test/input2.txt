@@ -1,13 +1,14 @@
-todo
-todo laze
-deadline laze
-deadline laze /by tomorrow
-event laze /from
-event laze /from now /to later
-mark 2
+tldr
+todo eat food
+todo play soccer
+todo play piano
 mark 1
-unmark 2
-mark 5
-unmark 6
 list
-bye
+delete
+mark
+unmark
+delete 3
+list
+delete 1
+delete 1
+list

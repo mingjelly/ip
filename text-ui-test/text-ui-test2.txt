@@ -1,4 +1,1 @@
-T|1|laze
-D|0|laze|tomorrow
-D|0|laze|tomorrow
-E|0|laze|now|later
+T|0|play piano
