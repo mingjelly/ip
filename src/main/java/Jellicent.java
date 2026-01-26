@@ -30,8 +30,8 @@ public class Jellicent {
         }
 
         try (FileWriter fileWriter = new FileWriter(file)) {
-            for (int i = 0; i < tasks.size(); i++) {
-                fileWriter.write(tasks.get(i).toFileString() + "\n");
+            for (Task task: tasks) {
+                fileWriter.write(task.toFileString() + "\n");
             }
         }
     }
@@ -46,12 +46,12 @@ public class Jellicent {
 
         Task task;
         try {
-            switch (dataArray[0]) {
-                case "T": task = new ToDo(dataArray[2]); break;
-                case "D": task = new Deadline(dataArray[2], dataArray[3]); break;
-                case "E": task = new Event(dataArray[2], dataArray[3], dataArray[4]); break;
-                default: throw new IllegalArgumentException("Unknown Task Type: " + dataArray[0]);
-            }
+            task = switch (dataArray[0]) {
+                case "T" -> new ToDo(dataArray[2]);
+                case "D" -> new Deadline(dataArray[2], dataArray[3]);
+                case "E" -> new Event(dataArray[2], dataArray[3], dataArray[4]);
+                default -> throw new IllegalArgumentException("Unknown Task Type: " + dataArray[0]);
+            };
         }
         catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
             throw new IllegalArgumentException("Saved data is in the wrong format!");
