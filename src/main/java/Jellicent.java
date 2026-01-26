@@ -23,7 +23,9 @@ public class Jellicent {
     private static void saveListDataIntoFile(String filePath, ArrayList<Task> tasks) throws IOException {
         // Assume that the tasks are
         File file = new File(filePath);
-        file.getParentFile().mkdirs();
+        if (file.getParentFile() != null) {
+            file.getParentFile().mkdirs();
+        }
 
         try (FileWriter fileWriter = new FileWriter(file)) {
             for (int i = 0; i < tasks.size(); i++) {
@@ -75,14 +77,26 @@ public class Jellicent {
         }
     }
 
+    private static void addTask(ArrayList<Task> tasks, Task task) {
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+    }
+
     public static void main(String[] args) {
 
-        String filePath = "data/tasks.txt";
+        String filePath;
+        if (args.length > 0) {
+            filePath = args[0];
+        } else {
+            filePath = "data/tasks.txt";
+        }
+
         ArrayList<Task> tasks = loadFileDataIntoList(filePath);
-        String name = "Jellicent";
 
         System.out.println("----------------------------------------------------------------------");
-        System.out.println("Hello from " + name + "\nWhat can I do for you?");
+        System.out.println("Hello from Jellicent \nWhat can I do for you?");
         Scanner scanner = new Scanner(System.in);
         System.out.println("----------------------------------------------------------------------");
 
@@ -157,16 +171,11 @@ public class Jellicent {
                             throw new JellicentException("Oops! Delete requires an index number!");
                         } else {
                             try {
-                                // 1 Not Integer, 2 Index out of bounds
                                 int deleteNum = Integer.parseInt(commands[1]);
                                 Task deletedTask = tasks.remove(deleteNum - 1);
                                 System.out.println("Noted, I have removed this task:");
                                 System.out.println(deletedTask);
-                                if (tasks.size() == 1) {
-                                    System.out.println("Now you have " + tasks.size() + " task in the list.");
-                                } else {
-                                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                                }
+                                System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                             } catch (NumberFormatException nfe) {
                                 throw new JellicentException("Oops! Delete requires an integer index number!");
                             } catch (IndexOutOfBoundsException ioobe) {
@@ -182,14 +191,7 @@ public class Jellicent {
                         } else {
                             String taskInfo = commands[1];
                             Task newTask = new ToDo(taskInfo);
-                            tasks.add(newTask);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(newTask);
-                            if (tasks.size() == 1) {
-                                System.out.println("Now you have " + tasks.size() + " task in the list.");
-                            } else {
-                                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                            }
+                            addTask(tasks, newTask);
                         }
                         break;
                     }
@@ -204,13 +206,7 @@ public class Jellicent {
                             } else {
                                 Task newTask = new Deadline(taskInfoList[0], taskInfoList[1]);
                                 tasks.add(newTask);
-                                System.out.println("Got it. I've added this task:");
-                                System.out.println(newTask);
-                                if (tasks.size() == 1) {
-                                    System.out.println("Now you have " + tasks.size() + " task in the list.");
-                                } else {
-                                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                                }
+                                addTask(tasks, newTask);
                             }
                         }
                         break;
@@ -225,14 +221,7 @@ public class Jellicent {
                                 throw new JellicentException("OOPS! An event requires a description, /from and /to timeframe!");
                             } else {
                                 Task newTask = new Event(taskInfoList[0], taskInfoList[1], taskInfoList[2]);
-                                tasks.add(newTask);
-                                System.out.println("Got it. I've added this task:");
-                                System.out.println(newTask);
-                                if (tasks.size() == 1) {
-                                    System.out.println("Now you have " + tasks.size() + " task in the list.");
-                                } else {
-                                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                                }
+                                addTask(tasks, newTask);
                             }
                         }
                         break;
