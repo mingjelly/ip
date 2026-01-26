@@ -1,5 +1,6 @@
+text-ui-test2.txt (The system cannot find the file specified)
 ----------------------------------------------------------------------
-Hello from Jellicent
+Hello from Jellicent 
 What can I do for you?
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
@@ -16,7 +17,7 @@ OOPS! A deadline requires a description and /by deadline!
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [D][ ] laze (by: tomorrow)
-Now you have 2 tasks in the list.
+Now you have 3 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS! An event requires a description, /from and /to timeframe!
@@ -24,7 +25,7 @@ OOPS! An event requires a description, /from and /to timeframe!
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [E][ ] laze (from: now to: later)
-Now you have 3 tasks in the list.
+Now you have 4 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Nice! I've marked this task as done:
@@ -39,16 +40,17 @@ Ok. I have marked this task as not done yet:
 [D][ ] laze (by: tomorrow)
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
-Oops! There are only 3 tasks in the list.
+Oops! There are only 4 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
-Oops! There are only 3 tasks in the list.
+Oops! There are only 4 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][X] laze
 2. [D][ ] laze (by: tomorrow)
-3. [E][ ] laze (from: now to: later)
+3. [D][ ] laze (by: tomorrow)
+4. [E][ ] laze (from: now to: later)
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Bye! Hope to see you again!
