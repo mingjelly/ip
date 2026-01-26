@@ -11,18 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Jellicent {
-    public enum CommandType {
-        LIST,
-        BYE,
-        MARK,
-        UNMARK,
-        TODO,
-        DEADLINE,
-        EVENT,
-        DELETE
-    }
+    private TaskList tasks;
 
-    private static void saveListDataIntoFile(String filePath, ArrayList<Task> tasks) throws IOException {
+    private static void saveListDataIntoFile(String filePath, TaskList tasks) throws IOException {
         // Assume that the tasks are
         File file = new File(filePath);
         if (file.getParentFile() != null) {
@@ -62,9 +53,9 @@ public class Jellicent {
         return task;
     }
 
-    private static ArrayList<Task> loadFileDataIntoList(String filePath) {
+    private static TaskList loadFileDataIntoList(String filePath) {
         File file = new File(filePath);
-        ArrayList<Task> tasks = new ArrayList<>();
+        TaskList tasks = new TaskList();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
@@ -79,12 +70,7 @@ public class Jellicent {
         }
     }
 
-    private static void addTask(ArrayList<Task> tasks, Task task) {
-        tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
-    }
+
 
     public static void main(String[] args) {
         String filePath;
@@ -94,7 +80,7 @@ public class Jellicent {
             filePath = "data/tasks.txt";
         }
 
-        ArrayList<Task> tasks = loadFileDataIntoList(filePath);
+        TaskList tasks = loadFileDataIntoList(filePath);
 
         System.out.println("----------------------------------------------------------------------");
         System.out.println("Hello from Jellicent \nWhat can I do for you?");
@@ -135,8 +121,7 @@ public class Jellicent {
                             try {
                                 // 1 Not Integer, 2 Index out of bounds
                                 int markNum = Integer.parseInt(commands[1]);
-                                Task markedTask = tasks.get(markNum-1);
-                                markedTask.markAsDone();
+                                Task markedTask = tasks.markDone(markNum);
                                 System.out.println("Nice! I've marked this task as done:");
                                 System.out.println(markedTask);
                             } catch (NumberFormatException nfe) {
@@ -155,8 +140,7 @@ public class Jellicent {
                             try {
                                 // 1 Not Integer, 2 Index out of bounds
                                 int markNum = Integer.parseInt(commands[1]);
-                                Task markedTask = tasks.get(markNum - 1);
-                                markedTask.markAsUndone();
+                                Task markedTask = tasks.markUndone(markNum);
                                 System.out.println("Ok. I have marked this task as not done yet:");
                                 System.out.println(markedTask);
                             } catch (NumberFormatException nfe) {
@@ -173,7 +157,7 @@ public class Jellicent {
                         } else {
                             try {
                                 int deleteNum = Integer.parseInt(commands[1]);
-                                Task deletedTask = tasks.remove(deleteNum - 1);
+                                Task deletedTask = tasks.remove(deleteNum);
                                 System.out.println("Noted, I have removed this task:");
                                 System.out.println(deletedTask);
                                 System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
@@ -192,7 +176,7 @@ public class Jellicent {
                         } else {
                             String taskInfo = commands[1];
                             Task newTask = new ToDo(taskInfo);
-                            addTask(tasks, newTask);
+                            tasks.add(newTask);
                         }
                         break;
                     }
@@ -217,7 +201,10 @@ public class Jellicent {
                                     throw new IllegalArgumentException("Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
                                 }
                                 Task newTask = new Deadline(description, byDateTime);
-                                addTask(tasks, newTask);
+                                tasks.add(newTask);
+                                System.out.println("Got it. I've added this task:");
+                                System.out.println(newTask);
+                                System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                             }
                         }
                         break;
@@ -247,7 +234,10 @@ public class Jellicent {
                                 }
 
                                 Task newTask = new Event(description, fromDateTime, toDateTime);
-                                addTask(tasks, newTask);
+                                tasks.add(newTask);
+                                System.out.println("Got it. I've added this task:");
+                                System.out.println(newTask);
+                                System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
                             }
                         }
                         break;
