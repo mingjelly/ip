@@ -1,73 +1,43 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Jellicent {
-    private static void saveListDataIntoFile(String filePath, TaskList tasks) throws IOException {
-        // Assume that the tasks are
-        File file = new File(filePath);
-        if (file.getParentFile() != null) {
-            file.getParentFile().mkdirs();
-        }
-
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            for (Task task: tasks) {
-                fileWriter.write(task.toFileString() + "\n");
-            }
-        }
-    }
-
-    private static Task parseStringIntoTask(String taskString) throws IllegalArgumentException {
+    private static TaskList parseStringsIntoTasks(ArrayList<String> strings) throws IllegalArgumentException {
         // Assumes that the string is stored in the form D|1|description|by
-        String[] dataArray = taskString.split("\\|");
+        TaskList taskList = new TaskList();
 
-        if (dataArray.length == 1) {
-            throw new IllegalArgumentException("Tasks are saved in incorrect format!");
-        }
+        for (String taskString:strings) {
+            String[] dataArray = taskString.split("\\|");
 
-        Task task;
-        try {
-            task = switch (dataArray[0]) {
-                case "T" -> new ToDo(dataArray[2]);
-                case "D" -> new Deadline(dataArray[2], dataArray[3]);
-                case "E" -> new Event(dataArray[2], dataArray[3], dataArray[4]);
-                default -> throw new IllegalArgumentException("Unknown Task Type: " + dataArray[0]);
-            };
-        }
-        catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new IllegalArgumentException("Saved data is in the wrong format!");
-        }
-        if ("1".equals(dataArray[1])) {
-            task.markAsDone();
-        }
-        return task;
-    }
-
-    private static TaskList loadFileDataIntoList(String filePath) {
-        File file = new File(filePath);
-        TaskList tasks = new TaskList();
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
-                Task task = parseStringIntoTask(data);
-                tasks.add(task);
+            if (dataArray.length == 1) {
+                throw new IllegalArgumentException("Tasks are saved in incorrect format!");
             }
-            return tasks;
+
+            Task task;
+            try {
+                task = switch (dataArray[0]) {
+                    case "T" -> new ToDo(dataArray[2]);
+                    case "D" -> new Deadline(dataArray[2], dataArray[3]);
+                    case "E" -> new Event(dataArray[2], dataArray[3], dataArray[4]);
+                    default -> throw new IllegalArgumentException("Unknown Task Type: " + dataArray[0]);
+                };
+            } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+                throw new IllegalArgumentException("Saved data is in the wrong format!");
+            }
+            if ("1".equals(dataArray[1])) {
+                task.markAsDone();
+            }
+            taskList.add(task);
         }
-        catch (FileNotFoundException | IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return tasks;
-        }
+        return taskList;
+
     }
-
-
 
     public static void main(String[] args) {
         String filePath;
@@ -76,8 +46,9 @@ public class Jellicent {
         } else {
             filePath = "data/tasks.txt";
         }
-
-        TaskList tasks = loadFileDataIntoList(filePath);
+        Storage storage = new Storage(filePath);
+        ArrayList<String> strings = storage.loadFileDataIntoList();
+        TaskList tasks = parseStringsIntoTasks(strings);
         Ui ui = new Ui();
 
         ui.greetUser();
@@ -231,7 +202,7 @@ public class Jellicent {
                         throw new JellicentException("OOPS! I'm sorry, but I don't know what that means :<");
                     }
                 }
-                saveListDataIntoFile(filePath, tasks);
+                storage.saveListDataIntoFile(tasks);
 
             } catch (JellicentException | IOException | IllegalArgumentException je){
                 ui.showError(je.getMessage());

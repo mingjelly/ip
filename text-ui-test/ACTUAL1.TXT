@@ -6,6 +6,9 @@ What can I do for you?
 OOPS! The description of a todo cannot be empty.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
+Got it. I've added this task:
+[T][ ] laze
+Now you have 13 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS! A deadline requires a description and /by deadline!
@@ -16,7 +19,7 @@ Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [D][ ] laze (by: Oct 20 2019 12:00)
-Now you have 11 tasks in the list.
+Now you have 14 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS! An event requires a description, /from and /to timeframe!
@@ -27,7 +30,7 @@ Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [E][ ] laze (from: Oct 20 2019 12:00 to: Oct 20 2020 12:00)
-Now you have 12 tasks in the list.
+Now you have 15 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Nice! I've marked this task as done:
@@ -37,18 +40,14 @@ Nice! I've marked this task as done:
 Nice! I've marked this task as done:
 [T][X] borrow book
 ----------------------------------------------------------------------
-----------------------------------------------------------------------
 Ok. I have marked this task as not done yet:
 [T][ ] laze
-----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Nice! I've marked this task as done:
 [D][X] laze (by: Oct 20 2019 12:00)
 ----------------------------------------------------------------------
-----------------------------------------------------------------------
 Ok. I have marked this task as not done yet:
 [E][ ] laze (from: Oct 20 2019 12:00 to: Oct 20 2020 12:00)
-----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Here are the tasks in your list:
 1. [T][X] borrow book
@@ -63,6 +62,9 @@ Here are the tasks in your list:
 10. [T][ ] laze
 11. [D][ ] laze (by: Oct 20 2019 12:00)
 12. [E][ ] laze (from: Oct 20 2019 12:00 to: Oct 20 2020 12:00)
+13. [T][ ] laze
+14. [D][ ] laze (by: Oct 20 2019 12:00)
+15. [E][ ] laze (from: Oct 20 2019 12:00 to: Oct 20 2020 12:00)
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Bye! Hope to see you again!

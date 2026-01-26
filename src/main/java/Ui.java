@@ -1,5 +1,4 @@
 public class Ui {
-
     private void printLine() {
         System.out.println("----------------------------------------------------------------------");
     }
