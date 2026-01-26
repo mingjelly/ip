@@ -4,15 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Jellicent {
-    private TaskList tasks;
-
     private static void saveListDataIntoFile(String filePath, TaskList tasks) throws IOException {
         // Assume that the tasks are
         File file = new File(filePath);
