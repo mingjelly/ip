@@ -117,9 +117,7 @@ public class Jellicent {
                             try {
                                 int deleteNum = Integer.parseInt(commands[1]);
                                 Task deletedTask = tasks.remove(deleteNum);
-                                System.out.println("Noted, I have removed this task:");
-                                System.out.println(deletedTask);
-                                System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+                                ui.deleteTask(tasks, deletedTask);
                             } catch (NumberFormatException nfe) {
                                 throw new JellicentException("Oops! Delete requires an integer index number!");
                             } catch (IndexOutOfBoundsException ioobe) {

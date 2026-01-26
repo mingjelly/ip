@@ -54,8 +54,14 @@ public class Ui {
         System.out.println(task);
         tasksLeft(tasks);
         printLine();
+    }
 
-
+    public void deleteTask(TaskList tasks, Task task) {
+        printLine();
+        System.out.println("Noted, I have removed this task:");
+        System.out.println(task);
+        tasksLeft(tasks);
+        printLine();
     }
 
 
