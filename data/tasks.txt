@@ -1,0 +1,6 @@
+T|0|laze
+D|0|laze|tomorrow
+D|0|laze|tomorrow
+T|0|eat food
+T|0|play soccer
+T|0|play piano

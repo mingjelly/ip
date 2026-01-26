@@ -7,6 +7,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String toFileString() {
+        return "D|" + (super.isDone ? 1 : 0) + "|" + super.description + "|" + this.by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
