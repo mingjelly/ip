@@ -1,5 +1,12 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+
+
 
 public class Jellicent {
     public enum CommandType {
@@ -13,14 +20,71 @@ public class Jellicent {
         DELETE
     }
 
+    private static void saveListDataIntoFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        // Assume that the tasks are
+        File file = new File(filePath);
+        file.getParentFile().mkdirs();
+
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            for (int i = 0; i < tasks.size(); i++) {
+                fileWriter.write(tasks.get(i).toFileString() + "\n");
+            }
+        }
+    }
+
+    private static Task parseStringIntoTask(String taskString) throws IllegalArgumentException {
+        // Assumes that the string is stored in the form D|1|description|by
+        String[] dataArray = taskString.split("\\|");
+
+        if (dataArray.length == 1) {
+            throw new IllegalArgumentException("Tasks are saved in incorrect format!");
+        }
+
+        Task task;
+        try {
+            switch (dataArray[0]) {
+                case "T": task = new ToDo(dataArray[2]); break;
+                case "D": task = new Deadline(dataArray[2], dataArray[3]); break;
+                case "E": task = new Event(dataArray[2], dataArray[3], dataArray[4]);
+                default: throw new IllegalArgumentException("Unknown Task Type: " + dataArray[0]);
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException aiofbe) {
+            throw new IllegalArgumentException("Saved data is in the wrong format!");
+        }
+        if ("1".equals(dataArray[1])) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    private static ArrayList<Task> loadFileDataIntoList(String filePath) {
+        File file = new File(filePath);
+        ArrayList<Task> tasks = new ArrayList<>();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
+                Task task = parseStringIntoTask(data);
+                tasks.add(task);
+            }
+            return tasks;
+        }
+        catch (FileNotFoundException | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return tasks;
+        }
+    }
+
     public static void main(String[] args) {
+
+        String filePath = "data/tasks.txt";
+        ArrayList<Task> tasks = loadFileDataIntoList(filePath);
         String name = "Jellicent";
+
         System.out.println("----------------------------------------------------------------------");
         System.out.println("Hello from " + name + "\nWhat can I do for you?");
         Scanner scanner = new Scanner(System.in);
         System.out.println("----------------------------------------------------------------------");
-
-        ArrayList<Task> tasks = new ArrayList<>();
 
         CommandType keyCommand;
 
@@ -177,9 +241,9 @@ public class Jellicent {
                         throw new JellicentException("OOPS! I'm sorry, but I don't know what that means :<");
                     }
                 }
+                saveListDataIntoFile(filePath, tasks);
 
-
-            } catch (JellicentException je){
+            } catch (JellicentException | IOException je){
                 System.out.println(je.getMessage());
             }
             System.out.println("----------------------------------------------------------------------");
