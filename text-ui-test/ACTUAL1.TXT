@@ -1,3 +1,4 @@
+Saved data is in the wrong format!
 ----------------------------------------------------------------------
 Hello from Jellicent 
 What can I do for you?
@@ -8,7 +9,7 @@ OOPS! The description of a todo cannot be empty.
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [T][ ] laze
-Now you have 3 tasks in the list.
+Now you have 4 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS! A deadline requires a description and /by deadline!
@@ -57,7 +58,7 @@ Here are the tasks in your list:
 1. [T][X] borrow book
 2. [T][ ] laze
 3. [T][ ] laze
-4. [D][X] laze (by: Oct 20 2019 12:00)
+4. [T][ ] laze
 5. [D][X] laze (by: Oct 20 2019 12:00)
 6. [E][ ] laze (from: Oct 20 2019 12:00 to: Oct 20 2020 12:00)
 ----------------------------------------------------------------------

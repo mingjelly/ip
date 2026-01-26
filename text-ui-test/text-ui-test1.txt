@@ -1,6 +1,6 @@
 T|1|borrow book
 T|0|laze
 T|0|laze
-D|1|laze|Oct 20 2019 12:00
-D|1|laze|Oct 20 2019 12:00
-E|0|laze|Oct 20 2019 12:00|Oct 20 2020 12:00
+T|0|laze
+D|1|laze|2019/10/20 12:00
+E|0|laze|2019/10/20 12:00|2020/10/20 12:00
