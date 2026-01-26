@@ -78,11 +78,10 @@ public class Jellicent {
         }
 
         TaskList tasks = loadFileDataIntoList(filePath);
+        Ui ui = new Ui();
 
-        System.out.println("----------------------------------------------------------------------");
-        System.out.println("Hello from Jellicent \nWhat can I do for you?");
+        ui.greetUser();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("----------------------------------------------------------------------");
 
         CommandType keyCommand;
 
@@ -90,7 +89,6 @@ public class Jellicent {
             String command = scanner.nextLine();
             String[] commands = command.split(" ", 2);
             try {
-                System.out.println("----------------------------------------------------------------------");
                 try {
                     keyCommand = CommandType.valueOf(commands[0].toUpperCase());
                 } catch (IllegalArgumentException iae){
@@ -98,16 +96,11 @@ public class Jellicent {
                 }
                 switch (keyCommand) {
                     case BYE: {
-                        System.out.println("Bye! Hope to see you again!");
-                        System.out.println("----------------------------------------------------------------------");
+                        ui.farewellUser();
                         return;
                     }
                     case LIST: {
-                        System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < tasks.size(); i++) {
-                            Task currTask = tasks.get(i);
-                            System.out.println(i+1 + ". " + currTask);
-                        }
+                        ui.listTasks(tasks);
                         break;
                     }
                     case MARK: {
@@ -119,8 +112,7 @@ public class Jellicent {
                                 // 1 Not Integer, 2 Index out of bounds
                                 int markNum = Integer.parseInt(commands[1]);
                                 Task markedTask = tasks.markDone(markNum);
-                                System.out.println("Nice! I've marked this task as done:");
-                                System.out.println(markedTask);
+                                ui.markDone(markedTask);
                             } catch (NumberFormatException nfe) {
                                 throw new JellicentException("Oops! Mark requires an integer index number!");
                             } catch (IndexOutOfBoundsException ioobe) {
@@ -138,8 +130,7 @@ public class Jellicent {
                                 // 1 Not Integer, 2 Index out of bounds
                                 int markNum = Integer.parseInt(commands[1]);
                                 Task markedTask = tasks.markUndone(markNum);
-                                System.out.println("Ok. I have marked this task as not done yet:");
-                                System.out.println(markedTask);
+                                ui.markUndone(markedTask);
                             } catch (NumberFormatException nfe) {
                                 throw new JellicentException("Oops! Unmark requires an integer index number!");
                             } catch (IndexOutOfBoundsException ioobe) {
@@ -174,6 +165,7 @@ public class Jellicent {
                             String taskInfo = commands[1];
                             Task newTask = new ToDo(taskInfo);
                             tasks.add(newTask);
+                            ui.addTask(tasks, newTask);
                         }
                         break;
                     }
@@ -199,9 +191,7 @@ public class Jellicent {
                                 }
                                 Task newTask = new Deadline(description, byDateTime);
                                 tasks.add(newTask);
-                                System.out.println("Got it. I've added this task:");
-                                System.out.println(newTask);
-                                System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+                                ui.addTask(tasks, newTask);
                             }
                         }
                         break;
@@ -232,9 +222,7 @@ public class Jellicent {
 
                                 Task newTask = new Event(description, fromDateTime, toDateTime);
                                 tasks.add(newTask);
-                                System.out.println("Got it. I've added this task:");
-                                System.out.println(newTask);
-                                System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+                                ui.addTask(tasks, newTask);
                             }
                         }
                         break;
@@ -246,10 +234,8 @@ public class Jellicent {
                 saveListDataIntoFile(filePath, tasks);
 
             } catch (JellicentException | IOException | IllegalArgumentException je){
-                System.out.println(je.getMessage());
+                ui.showError(je.getMessage());
             }
-            System.out.println("----------------------------------------------------------------------");
-
         }
 
 
