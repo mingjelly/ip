@@ -14,14 +14,8 @@ public abstract class Task {
 
     protected String readDateTime(LocalDateTime dateTime) {
         // inputs dateTime and converts into the necessary string for internal use
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         return dateTime.format(formatter);
-    }
-
-    protected LocalDateTime stringToDateTime(String dateTime) {
-        // Reads from file or input
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return LocalDateTime.parse(dateTime, formatter);
     }
 
     protected String storeDateTime (LocalDateTime dateTime) {

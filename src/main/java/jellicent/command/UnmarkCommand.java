@@ -14,7 +14,12 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IndexOutOfBoundsException {
-        Task markedTask = tasks.markUndone(this.markNum);
-        ui.markUndone(markedTask);
+        try {
+            Task markedTask = tasks.markUndone(this.markNum);
+            ui.markUndone(markedTask);
+        }
+        catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException("Oops! There are only " + tasks.size() + " tasks in the list.");
+        }
     }
 }

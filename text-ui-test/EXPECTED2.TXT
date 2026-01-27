@@ -2,6 +2,7 @@
 Hello from Jellicent
 What can I do for you?
 ----------------------------------------------------------------------
+text-ui-test2.txt (The system cannot find the file specified)
 ----------------------------------------------------------------------
 Oops!!! I'm sorry, but I don't know what that means :<
 ----------------------------------------------------------------------
@@ -31,13 +32,13 @@ Here are the tasks in your list:
 3. [T][ ] play piano
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
-Oops! Delete requires an index number!
+OOPS! Delete command requires an integer after
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
-Oops! Mark requires an index number!
+OOPS! Mark command requires an integer after
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
-Oops! Mark requires an index number!
+OOPS! Unmark command requires an integer after
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Noted, I have removed this task:

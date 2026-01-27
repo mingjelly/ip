@@ -22,8 +22,6 @@ public class Event extends Task {
                 + storeDateTime(this.to);
     }
 
-
-
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + readDateTime(from) + " to: " + readDateTime(this.to) + ")";

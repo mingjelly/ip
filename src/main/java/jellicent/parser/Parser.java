@@ -103,7 +103,7 @@ public class Parser {
             }
             case TODO -> {
                 if (commandInfo.length == 1) {
-                    throw new ParserException("OOPS! Todo command requires a description!");
+                    throw new ParserException("OOPS! The description of a todo cannot be empty.");
                 }
                 yield new TodoCommand(commandInfo[1]);
             } // Possible error, 1) No commandInfo

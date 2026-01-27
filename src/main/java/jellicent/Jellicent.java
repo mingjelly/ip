@@ -48,8 +48,8 @@ public class Jellicent {
                 if (command.isExit()) {
                     return;
                 }
-            } catch (ParserException pe){
-                ui.showError(pe.getMessage());
+            } catch (ParserException | IndexOutOfBoundsException e){
+                ui.showError(e.getMessage());
             }
         }
 

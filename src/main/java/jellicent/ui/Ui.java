@@ -9,7 +9,7 @@ public class Ui {
     }
     public void greetUser() {
         printLine();
-        System.out.println("Hello from Jellicent \nWhat can I do for you?");
+        System.out.println("Hello from Jellicent\nWhat can I do for you?");
         printLine();
     }
 
@@ -43,8 +43,10 @@ public class Ui {
     }
 
     public void markUndone(Task task) {
+        printLine();
         System.out.println("Ok. I have marked this task as not done yet:");
         System.out.println(task);
+        printLine();
     }
 
     private void tasksLeft(TaskList tasks) {
