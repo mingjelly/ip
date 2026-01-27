@@ -1,2 +1,8 @@
 D|0|laze|2019/10/20 12:00
 E|0|laze|2019/10/20 12:00|2020/10/20 12:00
+T|0|play game
+T|0|play game
+T|0|play game
+T|0|play game
+T|0|play game
+T|0|read book

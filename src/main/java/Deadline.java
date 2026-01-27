@@ -8,9 +8,9 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = stringToDateTime(by);
+    public Deadline(String description, LocalDateTime by, int marked) {
+        this(description, by);
+        if (marked == 1) {this.markAsDone();}
     }
 
     public String toFileString() {
