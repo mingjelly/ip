@@ -1,5 +1,5 @@
 public class UnmarkCommand extends Command {
-    private int markNum;
+    private final int markNum;
 
     public UnmarkCommand(int num) {
         this.markNum = num;

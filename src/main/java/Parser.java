@@ -54,8 +54,7 @@ public class Parser {
             throw new ParserException("Oops!!! I'm sorry, but I don't know what that means :<");
         }
 
-
-        Command command = switch (keyCommand) {
+        return switch (keyCommand) {
             case BYE -> new ByeCommand();
             case LIST -> new ListCommand();
             case MARK -> {
@@ -139,7 +138,6 @@ public class Parser {
                 }
             }
         };
-        return command;
     }
 
 }

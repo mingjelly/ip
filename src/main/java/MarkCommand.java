@@ -1,5 +1,5 @@
 public class MarkCommand extends Command {
-    private int markNum;
+    private final int markNum;
 
     public MarkCommand(int num) {
         this.markNum = num;

@@ -10,12 +10,6 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = stringToDateTime(from);
-        this.to = stringToDateTime(to);
-    }
-
     public Event(String description, LocalDateTime from, LocalDateTime to, int marked) {
         this(description, from, to);
         if (marked == 1) {this.markAsDone();}
