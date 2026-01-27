@@ -1,15 +1,26 @@
+package jellicent.command;
+
+import jellicent.storage.Storage;
+import jellicent.task.Deadline;
+import jellicent.task.Task;
+import jellicent.task.TaskList;
+import jellicent.ui.Ui;
+
 import java.io.IOException;
+import java.time.LocalDateTime;
 
-public class TodoCommand extends Command {
+public class DeadlineCommand extends Command {
     private final String description;
+    private final LocalDateTime by;
 
-    TodoCommand(String description) {
+    public DeadlineCommand(String description, LocalDateTime by) {
         this.description = description;
+        this.by = by;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task newTask = new ToDo(description);
+        Task newTask = new Deadline(this.description, this.by);
         tasks.add(newTask);
         ui.addTask(tasks, newTask);
         try {
@@ -19,3 +30,4 @@ public class TodoCommand extends Command {
         }
     }
 }
+

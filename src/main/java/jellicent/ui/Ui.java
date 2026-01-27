@@ -1,3 +1,8 @@
+package jellicent.ui;
+
+import jellicent.task.Task;
+import jellicent.task.TaskList;
+
 public class Ui {
     private void printLine() {
         System.out.println("----------------------------------------------------------------------");

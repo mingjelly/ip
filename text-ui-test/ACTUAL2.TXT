@@ -8,17 +8,17 @@ Oops!!! I'm sorry, but I don't know what that means :<
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [T][ ] eat food
-Now you have 5 tasks in the list.
+Now you have 8 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [T][ ] play soccer
-Now you have 6 tasks in the list.
+Now you have 9 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [T][ ] play piano
-Now you have 7 tasks in the list.
+Now you have 10 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Nice! I've marked this task as done:
@@ -33,6 +33,9 @@ Here are the tasks in your list:
 5. [T][ ] eat food
 6. [T][ ] play soccer
 7. [T][ ] play piano
+8. [T][ ] eat food
+9. [T][ ] play soccer
+10. [T][ ] play piano
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS! Unmark command requires an integer after
@@ -46,7 +49,7 @@ OOPS! Unmark command requires an integer after
 ----------------------------------------------------------------------
 Noted, I have removed this task:
 [T][ ] play soccer
-Now you have 6 tasks in the list.
+Now you have 9 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Here are the tasks in your list:
@@ -56,16 +59,19 @@ Here are the tasks in your list:
 4. [T][ ] eat food
 5. [T][ ] play soccer
 6. [T][ ] play piano
+7. [T][ ] eat food
+8. [T][ ] play soccer
+9. [T][ ] play piano
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Noted, I have removed this task:
 [T][X] play piano
-Now you have 5 tasks in the list.
+Now you have 8 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Noted, I have removed this task:
 [T][ ] eat food
-Now you have 4 tasks in the list.
+Now you have 7 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Here are the tasks in your list:
@@ -73,4 +79,7 @@ Here are the tasks in your list:
 2. [T][ ] eat food
 3. [T][ ] play soccer
 4. [T][ ] play piano
+5. [T][ ] eat food
+6. [T][ ] play soccer
+7. [T][ ] play piano
 ----------------------------------------------------------------------

@@ -1,3 +1,5 @@
+package jellicent.command;
+
 public enum CommandType {
     LIST,
     BYE,

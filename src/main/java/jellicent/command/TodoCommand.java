@@ -1,20 +1,23 @@
+package jellicent.command;
+
+import jellicent.storage.Storage;
+import jellicent.task.Task;
+import jellicent.task.TaskList;
+import jellicent.task.ToDo;
+import jellicent.ui.Ui;
+
 import java.io.IOException;
-import java.time.LocalDateTime;
 
-public class EventCommand extends Command {
+public class TodoCommand extends Command {
     private final String description;
-    private final LocalDateTime from;
-    private final LocalDateTime to;
 
-    public EventCommand(String description, LocalDateTime from, LocalDateTime to) {
+    public TodoCommand(String description) {
         this.description = description;
-        this.from = from;
-        this.to = to;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task newTask = new Event(this.description, this.from, this.to);
+        Task newTask = new ToDo(description);
         tasks.add(newTask);
         ui.addTask(tasks, newTask);
         try {
@@ -24,4 +27,3 @@ public class EventCommand extends Command {
         }
     }
 }
-

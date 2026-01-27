@@ -8,7 +8,7 @@ OOPS! Unmark command requires an integer after
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [T][ ] laze
-Now you have 19 tasks in the list.
+Now you have 22 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS! A deadline requires a description and /by deadline!
@@ -19,7 +19,7 @@ Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [D][ ] laze (by: Oct 20 2019 12:00)
-Now you have 20 tasks in the list.
+Now you have 23 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 OOPS! An event requires a description, /from and /to timeframe!
@@ -30,7 +30,7 @@ Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!
 ----------------------------------------------------------------------
 Got it. I've added this task:
 [E][ ] laze (from: Oct 20 2019 12:00 to: Oct 20 2020 12:00)
-Now you have 21 tasks in the list.
+Now you have 24 tasks in the list.
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Nice! I've marked this task as done:
@@ -71,6 +71,9 @@ Here are the tasks in your list:
 19. [T][ ] laze
 20. [D][ ] laze (by: Oct 20 2019 12:00)
 21. [E][ ] laze (from: Oct 20 2019 12:00 to: Oct 20 2020 12:00)
+22. [T][ ] laze
+23. [D][ ] laze (by: Oct 20 2019 12:00)
+24. [E][ ] laze (from: Oct 20 2019 12:00 to: Oct 20 2020 12:00)
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 Bye! Hope to see you again!
