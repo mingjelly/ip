@@ -4,6 +4,11 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo(String description, int marked) {
+        super(description);
+        if (marked == 1) {this.markAsDone();}
+    }
+
     public String toFileString() {
         return "T|" + (super.isDone ? 1 : 0) + "|" + super.description;
     }

@@ -4,3 +4,5 @@ T|0|play game
 T|0|play game
 T|0|play game
 T|0|play game
+T|0|play game
+T|0|read book

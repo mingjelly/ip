@@ -16,7 +16,10 @@ public class Event extends Task {
         this.to = stringToDateTime(to);
     }
 
-
+    public Event(String description, LocalDateTime from, LocalDateTime to, int marked) {
+        this(description, from, to);
+        if (marked == 1) {this.markAsDone();}
+    }
 
     public String toFileString() {
         return "E|" + (super.isDone ? 1 : 0) + "|" + super.description + "|" + storeDateTime(this.from) + "|"

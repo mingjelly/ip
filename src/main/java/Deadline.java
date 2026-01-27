@@ -13,6 +13,11 @@ public class Deadline extends Task {
         this.by = stringToDateTime(by);
     }
 
+    public Deadline(String description, LocalDateTime by, int marked) {
+        this(description, by);
+        if (marked == 1) {this.markAsDone();}
+    }
+
     public String toFileString() {
         return "D|" + (super.isDone ? 1 : 0) + "|" + super.description + "|" + storeDateTime(this.by);
     }
