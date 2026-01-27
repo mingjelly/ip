@@ -1,3 +1,12 @@
+package jellicent.parser;
+
+import jellicent.task.TaskList;
+import jellicent.task.ToDo;
+import jellicent.command.*;
+import jellicent.task.Deadline;
+import jellicent.task.Event;
+import jellicent.task.Task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -82,19 +91,19 @@ public class Parser {
             }
             case DELETE -> {
                 if (commandInfo.length == 1) {
-                    throw new ParserException("OOPS! Unmark command requires an integer after");
+                    throw new ParserException("OOPS! Delete command requires an integer after");
                 }
                 try {
                     int deleteNum = Integer.parseInt(commandInfo[1]);
                     yield new DeleteCommand(deleteNum);
                 } catch (NumberFormatException nfe) {
-                    throw new ParserException("Oops! Unmark requires an integer index number!");
+                    throw new ParserException("Oops! Delete requires an integer index number!");
                 }
                 // Execute might lead to different problems (e.g. int is outside the array...)
             }
             case TODO -> {
                 if (commandInfo.length == 1) {
-                    throw new ParserException("OOPS! Unmark command requires an integer after");
+                    throw new ParserException("OOPS! The description of a todo cannot be empty.");
                 }
                 yield new TodoCommand(commandInfo[1]);
             } // Possible error, 1) No commandInfo

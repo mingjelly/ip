@@ -1,3 +1,5 @@
+package jellicent.task;
+
 import java.time.LocalDateTime;
 
 public class Event extends Task {
@@ -19,8 +21,6 @@ public class Event extends Task {
         return "E|" + (super.isDone ? 1 : 0) + "|" + super.description + "|" + storeDateTime(this.from) + "|"
                 + storeDateTime(this.to);
     }
-
-
 
     @Override
     public String toString() {

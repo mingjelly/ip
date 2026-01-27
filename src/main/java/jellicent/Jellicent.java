@@ -1,3 +1,12 @@
+package jellicent;
+
+import jellicent.command.Command;
+import jellicent.parser.Parser;
+import jellicent.parser.ParserException;
+import jellicent.storage.Storage;
+import jellicent.task.TaskList;
+import jellicent.ui.Ui;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -39,8 +48,8 @@ public class Jellicent {
                 if (command.isExit()) {
                     return;
                 }
-            } catch (ParserException pe){
-                ui.showError(pe.getMessage());
+            } catch (ParserException | IndexOutOfBoundsException e){
+                ui.showError(e.getMessage());
             }
         }
 
