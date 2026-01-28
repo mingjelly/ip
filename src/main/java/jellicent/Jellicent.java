@@ -21,8 +21,8 @@ public class Jellicent {
             filePath = "data/tasks.txt";
         }
 
+        // UI initialisation
         Ui ui = new Ui();
-        ui.greetUser();
 
         Storage storage = new Storage(filePath);
         ArrayList<String> strings = storage.loadFileDataIntoList();

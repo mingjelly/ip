@@ -4,9 +4,14 @@ import jellicent.task.Task;
 import jellicent.task.TaskList;
 
 public class Ui {
+    public Ui() {
+        this.greetUser();
+    }
+
     private void printLine() {
         System.out.println("----------------------------------------------------------------------");
     }
+
     public void greetUser() {
         printLine();
         System.out.println("Hello from Jellicent\nWhat can I do for you?");
