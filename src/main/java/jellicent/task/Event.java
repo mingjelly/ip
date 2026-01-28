@@ -14,16 +14,18 @@ public class Event extends Task {
 
     public Event(String description, LocalDateTime from, LocalDateTime to, int marked) {
         this(description, from, to);
-        if (marked == 1) {this.markAsDone();}
+        if (marked == 1) {this.setDone();}
     }
 
+    @Override
     public String toFileString() {
-        return "E|" + (super.isDone ? 1 : 0) + "|" + super.description + "|" + storeDateTime(this.from) + "|"
-                + storeDateTime(this.to);
+        return "E|" + (super.isDone ? 1 : 0) + "|" + super.description
+                + "|" + storeDateTime(this.from) + "|" + storeDateTime(this.to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + readDateTime(from) + " to: " + readDateTime(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + readDateTime(from)
+                + " to: " + readDateTime(this.to) + ")";
     }
 }

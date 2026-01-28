@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class DeadlineTest {
     @Test
-    void shouldBeDone_whenCreatedWithMarked1() {
+    void constructor_inputMarked1_isDoneTrue() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime, 1);
@@ -20,7 +20,7 @@ public class DeadlineTest {
     }
 
     @Test
-    void shouldBeUndone_whenCreatedWithUnmarked1() {
+    void constructor_inputMarked0_isDoneFalse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime, 0);
@@ -28,41 +28,41 @@ public class DeadlineTest {
     }
 
     @Test
-    void shouldMarkDoneCorrectly() {
+    void setDone_whenCalled_isDoneTrue() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
-        deadline.markAsDone();
+        deadline.setDone();
         assertTrue(deadline.isDone);
     }
 
     @Test
-    void shouldMarkUndoneCorrectly() {
+    void setUndone_whenCalled_isDoneFalse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
-        deadline.markAsUndone();
+        deadline.setUndone();
         assertFalse(deadline.isDone);
     }
 
     @Test
-    void toStringShouldIncludeTypeAndStatus() {
+    void toString_initialState_isCorrectString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
         assertEquals("[D][ ] Read book (by: 11 Oct 2019 12:30)" , deadline.toString());
 
-        deadline.markAsDone();
+        deadline.setDone();
         assertEquals("[D][X] Read book (by: 11 Oct 2019 12:30)", deadline.toString());
     }
 
     @Test
-    void toFileStringShouldReturnCorrectFormat() {
+    void toFileString_initialState_isCorrectString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
         assertEquals("D|0|Read book|2019/10/11 12:30", deadline.toFileString());
-        deadline.markAsDone();
+        deadline.setDone();
         assertEquals("D|1|Read book|2019/10/11 12:30", deadline.toFileString());
     }
 }

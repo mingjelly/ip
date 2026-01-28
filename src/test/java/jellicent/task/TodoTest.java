@@ -8,46 +8,46 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class TodoTest {
     @Test
-    void shouldBeDone_whenCreatedWithMarked1() {
+    void constructor_inputMarked1_isDoneTrue() {
         ToDo todo = new ToDo("Read book", 1);
         assertTrue(todo.isDone);
     }
 
     @Test
-    void shouldBeUndone_whenCreatedWithUnmarked1() {
+    void constructor_inputMarked0_isDoneFalse() {
         ToDo todo = new ToDo("Read book", 0);
         assertFalse(todo.isDone);
     }
 
     @Test
-    void shouldMarkDoneCorrectly() {
+    void setDone_whenCalled_isDoneTrue() {
         ToDo todo = new ToDo("Read book");
-        todo.markAsDone();
+        todo.setDone();
         assertTrue(todo.isDone);
     }
 
     @Test
-    void shouldMarkUndoneCorrectly() {
+    void setUndone_whenCalled_isDoneFalse() {
         ToDo todo = new ToDo("Read book", 1);
-        todo.markAsUndone();
+        todo.setUndone();
         assertFalse(todo.isDone);
     }
 
     @Test
-    void toStringShouldIncludeTypeAndStatus() {
+    void toString_initialState_isCorrectString() {
         ToDo todo = new ToDo("Read book");
         assertEquals("[T][ ] Read book", todo.toString());
 
-        todo.markAsDone();
+        todo.setDone();
         assertEquals("[T][X] Read book", todo.toString());
     }
 
     @Test
-    void toFileStringShouldReturnCorrectFormat() {
+    void toFileString_initialState_isCorrectString() {
         ToDo todo = new ToDo("Read book");
         assertEquals("T|0|Read book", todo.toFileString());
 
-        todo.markAsDone();
+        todo.setDone();
         assertEquals("T|1|Read book", todo.toFileString());
     }
 

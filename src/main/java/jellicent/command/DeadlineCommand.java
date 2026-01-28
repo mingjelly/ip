@@ -20,9 +20,14 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        // Initialise deadline object and add tasks
         Task newTask = new Deadline(this.description, this.by);
         tasks.add(newTask);
+
+        // Output add tasks via ui
         ui.addTask(tasks, newTask);
+
+        // Save all new tasks into text file
         try {
             storage.saveListDataIntoFile(tasks); //io exception?
         } catch (IOException e) {

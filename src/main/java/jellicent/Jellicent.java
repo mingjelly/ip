@@ -11,6 +11,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Jellicent {
+
+    /**
+     * Entry point of Jellicent Application.
+     * Initialises ui, loads data from storage, and starts user input loop.
+     *
+     * @param args command-line arguments used for testing if needed.
+     */
     public static void main(String[] args) {
         String filePath;
 
@@ -21,23 +28,24 @@ public class Jellicent {
             filePath = "data/tasks.txt";
         }
 
+        // UI initialisation
         Ui ui = new Ui();
-        ui.greetUser();
 
+        // Storage initialisation and load file
         Storage storage = new Storage(filePath);
         ArrayList<String> strings = storage.loadFileDataIntoList();
-
-        Scanner scanner = new Scanner(System.in);
-
         TaskList tasks;
         try {
             tasks = Parser.stringsIntoTasks(strings);
-        }
-        catch (ParserException pe) {
+        } catch (ParserException pe) {
             ui.showError(pe.getMessage());
             tasks = new TaskList();
         }
 
+        // Scanner for reading user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Main input loop
         while (scanner.hasNextLine()) {
             String userInput = scanner.nextLine();
 
@@ -52,9 +60,5 @@ public class Jellicent {
                 ui.showError(e.getMessage());
             }
         }
-
-
     }
-
-
 }
