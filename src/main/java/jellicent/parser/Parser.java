@@ -146,6 +146,12 @@ public class Parser {
                     yield new DeadlineCommand(description, byDateTime);
                 }
             }
+            case FIND -> {
+                if (commandInfo.length == 1) {
+                    throw new ParserException("OOPS! Find command requires a search word!");
+                }
+                yield new FindCommand(commandInfo[1]);
+            }
         };
     }
 
