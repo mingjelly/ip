@@ -20,16 +20,16 @@ public class TodoTest {
     }
 
     @Test
-    void markAsDone_whenCalled_isDoneTrue() {
+    void setDone_whenCalled_isDoneTrue() {
         ToDo todo = new ToDo("Read book");
-        todo.markAsDone();
+        todo.setDone();
         assertTrue(todo.isDone);
     }
 
     @Test
-    void markAsUndone_whenCalled_isDoneFalse() {
+    void setUndone_whenCalled_isDoneFalse() {
         ToDo todo = new ToDo("Read book", 1);
-        todo.markAsUndone();
+        todo.setUndone();
         assertFalse(todo.isDone);
     }
 
@@ -38,7 +38,7 @@ public class TodoTest {
         ToDo todo = new ToDo("Read book");
         assertEquals("[T][ ] Read book", todo.toString());
 
-        todo.markAsDone();
+        todo.setDone();
         assertEquals("[T][X] Read book", todo.toString());
     }
 
@@ -47,7 +47,7 @@ public class TodoTest {
         ToDo todo = new ToDo("Read book");
         assertEquals("T|0|Read book", todo.toFileString());
 
-        todo.markAsDone();
+        todo.setDone();
         assertEquals("T|1|Read book", todo.toFileString());
     }
 

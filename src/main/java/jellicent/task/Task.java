@@ -27,11 +27,11 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markAsDone() {
+    public void setDone() {
         this.isDone = true;
     }
 
-    public void markAsUndone() {
+    public void setUndone() {
         this.isDone = false;
     }
 

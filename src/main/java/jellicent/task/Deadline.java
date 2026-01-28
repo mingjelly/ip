@@ -12,7 +12,7 @@ public class Deadline extends Task {
 
     public Deadline(String description, LocalDateTime by, int marked) {
         this(description, by);
-        if (marked == 1) {this.markAsDone();}
+        if (marked == 1) {this.setDone();}
     }
 
     public String toFileString() {

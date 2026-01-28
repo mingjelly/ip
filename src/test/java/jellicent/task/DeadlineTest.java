@@ -28,20 +28,20 @@ public class DeadlineTest {
     }
 
     @Test
-    void markAsDone_whenCalled_isDoneTrue() {
+    void setDone_whenCalled_isDoneTrue() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
-        deadline.markAsDone();
+        deadline.setDone();
         assertTrue(deadline.isDone);
     }
 
     @Test
-    void markAsUndone_whenCalled_isDoneFalse() {
+    void setUndone_whenCalled_isDoneFalse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
-        deadline.markAsUndone();
+        deadline.setUndone();
         assertFalse(deadline.isDone);
     }
 
@@ -52,7 +52,7 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("Read book", dateTime);
         assertEquals("[D][ ] Read book (by: 11 Oct 2019 12:30)" , deadline.toString());
 
-        deadline.markAsDone();
+        deadline.setDone();
         assertEquals("[D][X] Read book (by: 11 Oct 2019 12:30)", deadline.toString());
     }
 
@@ -62,7 +62,7 @@ public class DeadlineTest {
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
         assertEquals("D|0|Read book|2019/10/11 12:30", deadline.toFileString());
-        deadline.markAsDone();
+        deadline.setDone();
         assertEquals("D|1|Read book|2019/10/11 12:30", deadline.toFileString());
     }
 }

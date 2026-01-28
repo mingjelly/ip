@@ -18,13 +18,13 @@ public class TaskList implements Iterable<Task> {
 
     public Task markDone(int num) {
         Task task = this.tasks.get(num-1);
-        task.markAsDone();
+        task.setDone();
         return task;
     }
 
     public Task markUndone(int num) {
         Task task = this.tasks.get(num-1);
-        task.markAsUndone();
+        task.setUndone();
         return task;
     }
 

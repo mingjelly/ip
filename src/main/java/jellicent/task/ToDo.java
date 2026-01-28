@@ -8,7 +8,7 @@ public class ToDo extends Task {
 
     public ToDo(String description, int marked) {
         super(description);
-        if (marked == 1) {this.markAsDone();}
+        if (marked == 1) {this.setDone();}
     }
 
     public String toFileString() {

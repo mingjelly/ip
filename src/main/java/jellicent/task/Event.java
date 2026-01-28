@@ -14,7 +14,7 @@ public class Event extends Task {
 
     public Event(String description, LocalDateTime from, LocalDateTime to, int marked) {
         this(description, from, to);
-        if (marked == 1) {this.markAsDone();}
+        if (marked == 1) {this.setDone();}
     }
 
     public String toFileString() {
