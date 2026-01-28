@@ -8,8 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class Storage {
     private final String filePath;
@@ -18,6 +19,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves task data into a file (text file).
+     *
+     * @param tasks Task data to be saved.
+     */
     public void saveListDataIntoFile(TaskList tasks) throws IOException {
         // Initialise file
         File file = new File(this.filePath);
@@ -33,6 +39,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads file data into an ArrayList for further processing.
+     *
+     * @return ArrayList of string data to be converted to tasks.
+     */
     public ArrayList<String> loadFileDataIntoList() {
         // Initialise file
         File file = new File(this.filePath);
@@ -49,6 +60,4 @@ public class Storage {
             return data;
         }
     }
-
-
 }

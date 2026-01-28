@@ -11,6 +11,13 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Jellicent {
+
+    /**
+     * Entry point of Jellicent Application.
+     * Initialises ui, loads data from storage, and starts user input loop.
+     *
+     * @param args command-line arguments used for testing if needed.
+     */
     public static void main(String[] args) {
         String filePath;
 

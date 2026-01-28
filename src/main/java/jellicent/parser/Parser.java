@@ -2,10 +2,20 @@ package jellicent.parser;
 
 import jellicent.task.TaskList;
 import jellicent.task.ToDo;
-import jellicent.command.*;
 import jellicent.task.Deadline;
 import jellicent.task.Event;
 import jellicent.task.Task;
+
+import jellicent.command.ByeCommand;
+import jellicent.command.Command;
+import jellicent.command.CommandType;
+import jellicent.command.DeadlineCommand;
+import jellicent.command.DeleteCommand;
+import jellicent.command.EventCommand;
+import jellicent.command.ListCommand;
+import jellicent.command.MarkCommand;
+import jellicent.command.TodoCommand;
+import jellicent.command.UnmarkCommand;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,13 +23,26 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Parser {
-    // Reads from file or user input and converts into LocalDateTime object
+
+    /**
+     * Reads from file or user input and converts into LocalDateTime object.
+     *
+     * @param dateTime The string read from file or user input.
+     *
+     * @return LocalDateTime for further processing.
+     */
     private static LocalDateTime stringToDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return LocalDateTime.parse(dateTime, formatter);
     }
 
-    // Converts loaded data into tasks
+    /**
+     * Converts loaded data into tasks.
+     *
+     * @param strings ArrayList of tasks' data from saved file.
+     *
+     * @return Initialised TaskList at the start of program.
+     */
     public static TaskList stringsIntoTasks(ArrayList<String> strings) throws ParserException {
         TaskList taskList = new TaskList();
 
@@ -56,7 +79,13 @@ public class Parser {
 
     }
 
-    // Converts a single input line into a command
+    /**
+     * Converts a single input line into a command during program execution.
+     *
+     * @param string user input to tell the program what to do.
+     *
+     * @return Executable Command for program to perform various actions.
+     */
     public static Command userInputIntoCommand(String string) throws ParserException {
         // Split the user input into key command and additional info
         String[] commandInfo = string.split(" ", 2);
@@ -180,5 +209,4 @@ public class Parser {
             }
         };
     }
-
 }
