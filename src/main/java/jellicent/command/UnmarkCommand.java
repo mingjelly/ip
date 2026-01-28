@@ -19,7 +19,8 @@ public class UnmarkCommand extends Command {
             ui.markUndone(markedTask);
         }
         catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException("Oops! There are only " + tasks.size() + " tasks in the list.");
+            throw new IndexOutOfBoundsException(
+                    "Oops! There are only " + tasks.size() + " tasks in the list.");
         }
     }
 }

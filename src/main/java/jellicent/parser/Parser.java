@@ -97,20 +97,23 @@ public class Parser {
                     int deleteNum = Integer.parseInt(commandInfo[1]);
                     yield new DeleteCommand(deleteNum);
                 } catch (NumberFormatException nfe) {
-                    throw new ParserException("Oops! Delete requires an integer index number!");
+                    throw new ParserException(
+                            "Oops! Delete requires an integer index number!");
                 }
                 // Execute might lead to different problems (e.g. int is outside the array...)
             }
             case TODO -> {
                 if (commandInfo.length == 1) {
-                    throw new ParserException("OOPS! The description of a todo cannot be empty.");
+                    throw new ParserException(
+                            "OOPS! The description of a todo cannot be empty.");
                 }
                 yield new TodoCommand(commandInfo[1]);
             } // Possible error, 1) No commandInfo
             case EVENT -> {
                 String[] taskInfoList = commandInfo[1].split(" /from | /to ");
                 if (taskInfoList.length < 3) {
-                    throw new ParserException("OOPS! An event requires a description, /from and /to timeframe!");
+                    throw new ParserException(
+                            "OOPS! An event requires a description, /from and /to timeframe!");
                 } else {
                     String description = taskInfoList[0];
                     String fromString = taskInfoList[1];
@@ -120,10 +123,13 @@ public class Parser {
                     LocalDateTime toDateTime;
 
                     try {
-                        fromDateTime = LocalDateTime.parse(fromString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-                        toDateTime = LocalDateTime.parse(toString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                        fromDateTime = LocalDateTime.parse(
+                                fromString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                        toDateTime = LocalDateTime.parse(
+                                toString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
                     } catch (DateTimeParseException dtpe) {
-                        throw new ParserException("Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
+                        throw new ParserException(
+                                "Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
                     }
                     yield new EventCommand(description, fromDateTime, toDateTime);
                 }
@@ -131,7 +137,8 @@ public class Parser {
             case DEADLINE -> {
                 String[] taskInfoList = commandInfo[1].split(" /by ");
                 if (taskInfoList.length == 1) {
-                    throw new ParserException("OOPS! A deadline requires a description and /by deadline!");
+                    throw new ParserException(
+                            "OOPS! A deadline requires a description and /by deadline!");
                 } else {
                     String description = taskInfoList[0];
                     String byString = taskInfoList[1];
@@ -139,9 +146,11 @@ public class Parser {
                     LocalDateTime byDateTime;
 
                     try {
-                        byDateTime = LocalDateTime.parse(byString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                        byDateTime = LocalDateTime.parse(
+                                byString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
                     } catch (DateTimeParseException dtpe) {
-                        throw new ParserException("Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
+                        throw new ParserException(
+                                "Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
                     }
                     yield new DeadlineCommand(description, byDateTime);
                 }

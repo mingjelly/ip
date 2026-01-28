@@ -18,12 +18,13 @@ public class Event extends Task {
     }
 
     public String toFileString() {
-        return "E|" + (super.isDone ? 1 : 0) + "|" + super.description + "|" + storeDateTime(this.from) + "|"
-                + storeDateTime(this.to);
+        return "E|" + (super.isDone ? 1 : 0) + "|" + super.description
+                + "|" + storeDateTime(this.from) + "|" + storeDateTime(this.to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + readDateTime(from) + " to: " + readDateTime(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + readDateTime(from)
+                + " to: " + readDateTime(this.to) + ")";
     }
 }

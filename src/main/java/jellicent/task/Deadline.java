@@ -16,7 +16,8 @@ public class Deadline extends Task {
     }
 
     public String toFileString() {
-        return "D|" + (super.isDone ? 1 : 0) + "|" + super.description + "|" + storeDateTime(this.by);
+        return "D|" + (super.isDone ? 1 : 0) + "|"
+                + super.description + "|" + storeDateTime(this.by);
     }
 
     @Override
