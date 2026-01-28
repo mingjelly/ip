@@ -17,8 +17,7 @@ public class MarkCommand extends Command {
         try {
             Task markedTask = tasks.markDone(this.markNum);
             ui.markDone(markedTask);
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(
                     "Oops! There are only " + tasks.size() + " tasks in the list.");
         }

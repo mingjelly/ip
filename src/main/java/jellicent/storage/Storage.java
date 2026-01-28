@@ -41,8 +41,7 @@ public class Storage {
                 data.add(scanner.nextLine());
             }
             return data;
-        }
-        catch (FileNotFoundException | IllegalArgumentException e) {
+        } catch (FileNotFoundException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return data;
         }

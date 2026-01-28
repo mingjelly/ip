@@ -32,8 +32,7 @@ public class Jellicent {
         TaskList tasks;
         try {
             tasks = Parser.stringsIntoTasks(strings);
-        }
-        catch (ParserException pe) {
+        } catch (ParserException pe) {
             ui.showError(pe.getMessage());
             tasks = new TaskList();
         }
