@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class DeadlineTest {
     @Test
-    void shouldBeDone_whenCreatedWithMarked1() {
+    void constructor_inputMarked1_isDoneTrue() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime, 1);
@@ -20,7 +20,7 @@ public class DeadlineTest {
     }
 
     @Test
-    void shouldBeUndone_whenCreatedWithUnmarked1() {
+    void constructor_inputMarked0_isDoneFalse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime, 0);
@@ -28,7 +28,7 @@ public class DeadlineTest {
     }
 
     @Test
-    void shouldMarkDoneCorrectly() {
+    void markAsDone_whenCalled_isDoneTrue() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
@@ -37,7 +37,7 @@ public class DeadlineTest {
     }
 
     @Test
-    void shouldMarkUndoneCorrectly() {
+    void markAsUndone_whenCalled_isDoneFalse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
@@ -46,7 +46,7 @@ public class DeadlineTest {
     }
 
     @Test
-    void toStringShouldIncludeTypeAndStatus() {
+    void toString_initialState_isCorrectString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
@@ -57,7 +57,7 @@ public class DeadlineTest {
     }
 
     @Test
-    void toFileStringShouldReturnCorrectFormat() {
+    void toFileString_initialState_isCorrectString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse("2019/10/11 12:30", formatter);
         Deadline deadline = new Deadline("Read book", dateTime);
