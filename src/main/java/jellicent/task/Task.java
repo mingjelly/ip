@@ -37,6 +37,13 @@ public abstract class Task {
         return dateTime.format(formatter);
     }
 
+    /**
+     * Checks if the string is found in the description of a string.
+     *
+     * @param string Description of the string.
+     *
+     * @return True if the string is found.
+     */
     public boolean contains(String string) {
         return this.description.contains(string);
     }
