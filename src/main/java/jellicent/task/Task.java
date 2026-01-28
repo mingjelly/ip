@@ -23,6 +23,10 @@ public abstract class Task {
         return dateTime.format(formatter);
     }
 
+    public boolean contains(String string) {
+        return this.description.contains(string);
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
