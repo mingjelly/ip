@@ -24,11 +24,9 @@ public class Jellicent {
         // UI initialisation
         Ui ui = new Ui();
 
+        // Storage initialisation and load file
         Storage storage = new Storage(filePath);
         ArrayList<String> strings = storage.loadFileDataIntoList();
-
-        Scanner scanner = new Scanner(System.in);
-
         TaskList tasks;
         try {
             tasks = Parser.stringsIntoTasks(strings);
@@ -37,6 +35,10 @@ public class Jellicent {
             tasks = new TaskList();
         }
 
+        // Scanner for reading user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Main input loop
         while (scanner.hasNextLine()) {
             String userInput = scanner.nextLine();
 
@@ -51,9 +53,5 @@ public class Jellicent {
                 ui.showError(e.getMessage());
             }
         }
-
-
     }
-
-
 }

@@ -22,9 +22,14 @@ public class EventCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        // Create new Event and add task into tasklist
         Task newTask = new Event(this.description, this.from, this.to);
         tasks.add(newTask);
+
+        // Output ui for adding task
         ui.addTask(tasks, newTask);
+
+        // Save new tasks into text file
         try {
             storage.saveListDataIntoFile(tasks); //io exception?
         } catch (IOException e) {

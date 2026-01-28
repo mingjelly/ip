@@ -19,12 +19,13 @@ public class Storage {
     }
 
     public void saveListDataIntoFile(TaskList tasks) throws IOException {
-        // Assume that the tasks are
+        // Initialise file
         File file = new File(this.filePath);
         if (file.getParentFile() != null) {
             file.getParentFile().mkdirs();
         }
 
+        // Takes each task and writes line by line
         try (FileWriter fileWriter = new FileWriter(file)) {
             for (Task task: tasks) {
                 fileWriter.write(task.toFileString() + "\n");
@@ -33,8 +34,10 @@ public class Storage {
     }
 
     public ArrayList<String> loadFileDataIntoList() {
+        // Initialise file
         File file = new File(this.filePath);
 
+        // Load file data into arraylist for further processing
         ArrayList<String> data = new ArrayList<String>();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
