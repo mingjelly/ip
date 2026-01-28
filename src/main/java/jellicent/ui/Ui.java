@@ -71,5 +71,18 @@ public class Ui {
         printLine();
     }
 
+    public void matchingTasks(TaskList matchingTasks) {
+        printLine();
+        if (matchingTasks.size() == 0) {
+            System.out.println("There are no matching tasks in your lists.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task currTask = matchingTasks.get(i);
+                System.out.println(i+1 + ". " + currTask);
+            }
+        }
+        printLine();
+    }
 
 }
