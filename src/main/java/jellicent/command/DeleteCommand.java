@@ -13,11 +13,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         // Delete task from task list
         Task deleteTask = tasks.remove(this.deleteNum);
 
         // Delete task output in ui
-        ui.deleteTask(tasks, deleteTask);
+        return ui.deleteTask(tasks, deleteTask);
+    }
+
+    public CommandType getCommandType() {
+        return CommandType.DELETE;
     }
 }
