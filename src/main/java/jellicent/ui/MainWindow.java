@@ -48,6 +48,14 @@ public class MainWindow extends AnchorPane {
         jellicentImageView.setPreserveRatio(true);
     }
 
+    public void showGreeting() {
+        Ui ui = new Ui();
+        String greeting = ui.greetUser();
+        dialogContainer.getChildren().add(
+                DialogBox.getJellicentDialog(greeting, jellicentImage)
+        );
+    }
+
     /** Injects the Duke instance */
     public void setJellicent(Jellicent j) {
         jellicent = j;

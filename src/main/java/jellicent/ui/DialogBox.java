@@ -72,10 +72,17 @@ public class DialogBox extends HBox {
                 // Do nothing
         }
     }
+
     public static DialogBox getJellicentDialog(String text, Image img, CommandType commandType) {
         var db = new DialogBox(text, img);
         db.flip();
         db.changeDialogStyle(commandType);
+        return db;
+    }
+
+    public static DialogBox getJellicentDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
         return db;
     }
 

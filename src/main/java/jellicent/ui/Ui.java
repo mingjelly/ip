@@ -6,9 +6,6 @@ import jellicent.task.Task;
 import jellicent.task.TaskList;
 
 public class Ui {
-    public Ui() {
-        this.greetUser();
-    }
 
     /**
      * Returns greet message when program initialises.
