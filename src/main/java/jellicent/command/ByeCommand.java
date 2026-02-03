@@ -6,12 +6,16 @@ import jellicent.ui.Ui;
 
 public class ByeCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.farewellUser();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.farewellUser();
     }
 
     @Override
     public boolean isExit() {
         return true;
+    }
+
+    public CommandType getCommandType() {
+        return CommandType.BYE;
     }
 }

@@ -12,14 +12,19 @@ public class FindCommand extends Command {
         this.string = string;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    @Override
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList matchingTasks = new TaskList();
         for (Task task: tasks) {
             if (task.contains(this.string)) {
                 matchingTasks.add(task);
             }
         }
-        ui.matchingTasks(matchingTasks);
+        return ui.matchingTasks(matchingTasks);
+    }
+
+    public CommandType getCommandType() {
+        return CommandType.FIND;
     }
 }
 
