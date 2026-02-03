@@ -1,7 +1,6 @@
 package jellicent.ui;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,7 @@ import jellicent.Jellicent;
  */
 public class Main extends Application {
     private final String filePath = "data/tasks.txt";
-    private Jellicent jellicent = new Jellicent(filePath);
+    private final Jellicent jellicent = new Jellicent(filePath);
 
     @Override
     public void start(Stage stage) {

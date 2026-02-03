@@ -85,7 +85,6 @@ public class Ui {
      */
     private StringBuilder tasksLeft(TaskList tasks) {
         StringBuilder resString = new StringBuilder();
-
         return resString.append("Now you have ")
                 .append(tasks.size())
                 .append(tasks.size() == 1 ? " task" : " tasks")
@@ -100,13 +99,8 @@ public class Ui {
      * @return Formatted add message for display.
      */
     public String addTask(TaskList tasks, Task task) {
-        StringBuilder addString = new StringBuilder();
-        addString.append("Got it. I've added this task:")
-                .append("\n")
-                .append(task)
-                .append("\n")
-                .append(tasksLeft(tasks));
-        return addString.toString();
+        return "Got it. I've added this task:" + "\n"
+                + task + "\n" + tasksLeft(tasks);
     }
 
     /**
@@ -117,11 +111,8 @@ public class Ui {
      * @return Formatted delete message for display.
      */
     public String deleteTask(TaskList tasks, Task task) {
-        StringBuilder delString = new StringBuilder();
-        delString.append("Noted, I have removed this task:")
-                .append(task)
-                .append(tasksLeft(tasks));
-        return delString.toString();
+        return "Noted, I have removed this task:\n" + task
+                + "\n" + tasksLeft(tasks);
     }
 
     /**

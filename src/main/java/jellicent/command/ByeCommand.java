@@ -10,11 +10,6 @@ public class ByeCommand extends Command {
         return ui.farewellUser();
     }
 
-    @Override
-    public boolean isExit() {
-        return true;
-    }
-
     public CommandType getCommandType() {
         return CommandType.BYE;
     }

@@ -16,14 +16,5 @@ public abstract class Command {
      */
     public abstract String execute(TaskList tasklist, Ui ui, Storage storage);
 
-    /**
-     * Checks if program should end.
-     *
-     * @return Boolean flag to signal the end of the program.
-     */
-    public boolean isExit() {
-        return false;
-    }
-
     public abstract CommandType getCommandType();
 }

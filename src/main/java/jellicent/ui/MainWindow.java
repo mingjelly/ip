@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import jellicent.Jellicent;
 import jellicent.command.CommandResponse;
 import jellicent.command.CommandType;
@@ -27,11 +28,11 @@ public class MainWindow extends AnchorPane {
 
     private Jellicent jellicent;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cinnamoroll.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/cinnamoroll.png"));
+    private final ImageView userImageView = new ImageView(userImage);
 
-    private Image jellicentImage = new Image(this.getClass().getResourceAsStream("/images/kuromi.png"));
-    private ImageView userImageView = new ImageView(userImage);
-    private ImageView jellicentImageView = new ImageView(jellicentImage);
+    private final Image jellicentImage = new Image(this.getClass().getResourceAsStream("/images/kuromi.png"));
+    private final ImageView jellicentImageView = new ImageView(jellicentImage);
 
     @FXML
     public void initialize() {
