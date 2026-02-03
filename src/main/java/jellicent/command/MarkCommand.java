@@ -13,13 +13,16 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task markedTask = tasks.markDone(this.markNum);
-            ui.markDone(markedTask);
+            return ui.markDone(markedTask);
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException(
-                    "Oops! There are only " + tasks.size() + " tasks in the list.");
+            return "Oops! There are only " + tasks.size() + " tasks in the list.";
         }
+    }
+
+    public CommandType getCommandType() {
+        return CommandType.MARK;
     }
 }
