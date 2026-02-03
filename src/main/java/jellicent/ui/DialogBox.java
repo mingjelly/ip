@@ -22,6 +22,8 @@ import jellicent.command.CommandType;
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
+    @FXML
+    private ImageView displayPicture;
 
     public DialogBox(String text, Image img) {
         try {
