@@ -16,6 +16,7 @@ import jellicent.command.ListCommand;
 import jellicent.command.MarkCommand;
 import jellicent.command.TodoCommand;
 import jellicent.command.UnmarkCommand;
+import jellicent.command.FindCommand;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -213,6 +214,7 @@ public class Parser {
                 }
                 yield new FindCommand(commandInfo[1]);
             }
+            default -> throw new ParserException("Unknown Command!");
         };
     }
 }

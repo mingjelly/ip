@@ -1,5 +1,7 @@
 package jellicent.ui;
 
+import java.lang.StringBuilder;
+
 import jellicent.task.Task;
 import jellicent.task.TaskList;
 
@@ -9,128 +11,140 @@ public class Ui {
     }
 
     /**
-     * Buffer line which will be used for most of ui printing.
+     * Returns greet message when program initialises.
+     *
+     * @return Formatted greeting message for display.
      */
-    private void printLine() {
-        System.out.println("----------------------------------------------------------------------");
+    public String greetUser() {
+        return "Hello from Jellicent\nWhat can I do for you?";
     }
 
     /**
-     * Shows greeting interface when program initialises.
+     * Returns farewell message that occurs when program exits.
+     *
+     * @return Formatted farewell message for display.
      */
-    public void greetUser() {
-        printLine();
-        System.out.println("Hello from Jellicent\nWhat can I do for you?");
-        printLine();
-    }
-
-    /**
-     * Shows farewell interface that occurs when program exits.
-     */
-    public void farewellUser() {
-        printLine();
-        System.out.println("Bye! Hope to see you again!");
-        printLine();
+    public String farewellUser() {
+        return "Bye! Hope to see you again!";
     }
 
     /**
      * Shows error interface when and error occurs.
+     *
+     * @param errMessage Error message input to be shown.
+     * @return Formatted error message for display.
      */
-    public void showError(String message) {
-        printLine();
-        System.out.println(message);
-        printLine();
+    public String showError(String errMessage) {
+        return errMessage;
     }
 
     /**
-     * Lists out all tasks that are currently stored in tasks.
+     * Returns list of all tasks that are currently stored in tasks.
      *
      * @param tasks Tasks to iterate through and list.
+     * @return Formatted list message for display.
      */
-    public void listTasks(TaskList tasks) {
-        printLine();
-        System.out.println("Here are the tasks in your list:");
+    public String listTasks(TaskList tasks) {
+        StringBuilder taskMsg = new StringBuilder();
+        taskMsg.append("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
-            System.out.println(i+1 + ". " + currTask);
+            taskMsg.append("\n")
+                    .append(i+1)
+                    .append(". ")
+                    .append(currTask);
         }
-        printLine();
+        return taskMsg.toString();
     }
 
     /**
-     * Shows interface for when a task has been marked done.
+     * Returns message for when a task has been marked done.
      *
      * @param task Task that was marked, that is used for the ui message.
+     * @return Formatted mark message for display.
      */
-    public void markDone(Task task) {
-        printLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        printLine();
+    public String markDone(Task task) {
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
-     * Shows interface for when a task has been marked undone.
+     * Returns message for when a task has been marked undone.
      *
      * @param task Task that was marked undone, that is used for the ui message.
+     * @return Formatted unmark message for display.
      */
-    public void markUndone(Task task) {
-        printLine();
-        System.out.println("Ok. I have marked this task as not done yet:");
-        System.out.println(task);
-        printLine();
+    public String markUndone(Task task) {
+        return "Ok. I have marked this task as not done yet:\n" + task;
     }
 
     /**
-     * Shows the number of tasks left.
+     * Helper method that returns the number of tasks left.
      *
      * @param tasks TaskList that is currently used in the program.
+     * @return StringBuilder that shows number of tasks remaining.
      */
-    private void tasksLeft(TaskList tasks) {
-        System.out.println("Now you have " + tasks.size()
-                + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+    private StringBuilder tasksLeft(TaskList tasks) {
+        StringBuilder resString = new StringBuilder();
 
+        return resString.append("Now you have ")
+                .append(tasks.size())
+                .append(tasks.size() == 1 ? " task" : " tasks")
+                .append(" in the list.");
     }
 
     /**
-     * Shows the ui when a task is added.
+     * Returns formatted message when a task is added.
      *
      * @param tasks TaskList that is currently used in the program.
      * @param task Task that was added to tasks.
+     * @return Formatted add message for display.
      */
-    public void addTask(TaskList tasks, Task task) {
-        printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        tasksLeft(tasks);
-        printLine();
+    public String addTask(TaskList tasks, Task task) {
+        StringBuilder addString = new StringBuilder();
+        addString.append("Got it. I've added this task:")
+                .append("\n")
+                .append(task)
+                .append("\n")
+                .append(tasksLeft(tasks));
+        return addString.toString();
     }
+
     /**
-     * Shows the ui when a task is deleted.
+     * Returns formatted message when a task is deleted.
      *
      * @param tasks TaskList that is currently used in the program.
      * @param task Task that was deleted from tasks.
+     * @return Formatted delete message for display.
      */
-    public void deleteTask(TaskList tasks, Task task) {
-        printLine();
-        System.out.println("Noted, I have removed this task:");
-        System.out.println(task);
-        tasksLeft(tasks);
-        printLine();
+    public String deleteTask(TaskList tasks, Task task) {
+        StringBuilder delString = new StringBuilder();
+        delString.append("Noted, I have removed this task:")
+                .append(task)
+                .append(tasksLeft(tasks));
+        return delString.toString();
     }
 
-    public void matchingTasks(TaskList matchingTasks) {
-        printLine();
+    /**
+     * Returns formatted message to find all matching tasks.
+     *
+     * @param matchingTasks TaskList of tasks that match the keyword.
+     * @return Formatted matching message for display.
+     */
+    public String matchingTasks(TaskList matchingTasks) {
+        StringBuilder matchString = new StringBuilder();
         if (matchingTasks.size() == 0) {
-            System.out.println("There are no matching tasks in your lists.");
+            matchString.append("There are no matching tasks in your lists.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            matchString.append("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task currTask = matchingTasks.get(i);
-                System.out.println(i+1 + ". " + currTask);
+                matchString.append("\n")
+                        .append(i+1)
+                        .append(". ")
+                        .append(currTask);
             }
         }
-        printLine();
+        return matchString.toString();
     }
 
 }
