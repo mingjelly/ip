@@ -14,12 +14,12 @@ public class Event extends Task {
 
     public Event(String description, LocalDateTime from, LocalDateTime to, int marked) {
         this(description, from, to);
-        if (marked == 1) {this.setDone();}
+        if (marked == DONE) {this.setDone();}
     }
 
     @Override
     public String toFileString() {
-        return "E|" + (super.isDone ? 1 : 0) + "|" + super.description
+        return "E|" + (super.isDone ? DONE : NOT_DONE) + "|" + super.description
                 + "|" + storeDateTime(this.from) + "|" + storeDateTime(this.to);
     }
 

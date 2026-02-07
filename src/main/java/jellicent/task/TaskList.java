@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> tasks;
+    private static final int ONE_BASED_TO_ZERO_BASED_OFFSET = 1;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -30,7 +31,7 @@ public class TaskList implements Iterable<Task> {
      * @return Task for further processing if required.
      */
     public Task markDone(int num) {
-        Task task = this.tasks.get(num-1);
+        Task task = this.tasks.get(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
         task.setDone();
         return task;
     }
@@ -43,7 +44,7 @@ public class TaskList implements Iterable<Task> {
      * @return Task for further processing if required.
      */
     public Task markUndone(int num) {
-        Task task = this.tasks.get(num-1);
+        Task task = this.tasks.get(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
         task.setUndone();
         return task;
     }
@@ -56,7 +57,7 @@ public class TaskList implements Iterable<Task> {
      * @return Task for further processing if required.
      */
     public Task remove(int num) {
-        return this.tasks.remove(num-1);
+        return this.tasks.remove(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
     }
 
     /**

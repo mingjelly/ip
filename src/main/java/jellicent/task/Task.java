@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected static final int DONE = 1;
+    protected static final int NOT_DONE = 0;
 
     public Task(String description) {
         this.description = description;

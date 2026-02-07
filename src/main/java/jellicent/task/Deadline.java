@@ -12,12 +12,12 @@ public class Deadline extends Task {
 
     public Deadline(String description, LocalDateTime by, int marked) {
         this(description, by);
-        if (marked == 1) {this.setDone();}
+        if (marked == DONE) {this.setDone();}
     }
 
     @Override
     public String toFileString() {
-        return "D|" + (super.isDone ? 1 : 0) + "|"
+        return "D|" + (super.isDone ? DONE : NOT_DONE) + "|"
                 + super.description + "|" + storeDateTime(this.by);
     }
 
