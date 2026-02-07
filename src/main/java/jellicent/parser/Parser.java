@@ -133,13 +133,13 @@ public class Parser {
         return switch (keyCommand) {
             case BYE -> new ByeCommand();
             case LIST -> new ListCommand();
-            case MARK -> parseMarkCommand(getArgumentOrThrow(commandInfo));
-            case UNMARK -> parseUnmarkCommand(getArgumentOrThrow(commandInfo));
-            case DELETE -> parseDeleteCommand(getArgumentOrThrow(commandInfo));
-            case TODO -> new TodoCommand(getArgumentOrThrow(commandInfo));
-            case EVENT -> parseEventCommand(getArgumentOrThrow(commandInfo));
-            case DEADLINE -> parseDeadlineCommand(getArgumentOrThrow(commandInfo));
-            case FIND -> new FindCommand(getArgumentOrThrow(commandInfo));
+            case MARK -> parseMarkCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case UNMARK -> parseUnmarkCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case DELETE -> parseDeleteCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case TODO -> new TodoCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case EVENT -> parseEventCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case DEADLINE -> parseDeadlineCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case FIND -> new FindCommand(getArgumentOrThrow(commandInfo, keyCommand));
             default -> throw new ParserException("Unknown Command!");
         };
     }
@@ -154,9 +154,9 @@ public class Parser {
     }
 
 
-    private static String getArgumentOrThrow(String[] commandInfo) throws ParserException {
+    private static String getArgumentOrThrow(String[] commandInfo, CommandType keyCommand) throws ParserException {
         if (commandInfo.length == 1) {
-            throw new ParserException(ARG_REQUIRED_ERROR.get(commandInfo[1]));
+            throw new ParserException(ARG_REQUIRED_ERROR.get(keyCommand));
         }
         return commandInfo[1];
     }
