@@ -24,6 +24,34 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Provides parsing utilities for the Jellicent application.
+ * <p>
+ * The {@code Parser} class is responsible for converting raw input strings
+ * or saved file data into {@link Task} objects or {@link Command} objects
+ * that the application can execute. It also handles validation and throws
+ * {@link ParserException} for invalid formats or missing information.
+ * </p>
+ * <p>
+ * Key functionalities include:
+ * <ul>
+ *     <li>Converting stored file strings into a {@link TaskList} via {@link #stringsIntoTasks(ArrayList)}</li>
+ *     <li>Converting user input strings into executable {@link Command} objects via {@link #userInputIntoCommand(String)}</li>
+ *     <li>Parsing and validating date/time strings for tasks</li>
+ *     <li>Providing informative error messages when input is invalid or incomplete</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     ArrayList&lt;String&gt; savedData = storage.loadFileDataIntoList();
+ *     TaskList tasks = Parser.stringsIntoTasks(savedData);
+ *
+ *     Command command = Parser.userInputIntoCommand("todo Read a book");
+ *     String output = command.execute(tasks, ui, storage);
+ * </pre>
+ * </p>
+ */
 public class Parser {
     private static final Map<CommandType, String> ARG_REQUIRED_ERROR = Map.of(
             CommandType.MARK, "OOPS! Mark command requires an integer after",

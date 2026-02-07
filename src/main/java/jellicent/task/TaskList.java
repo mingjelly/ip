@@ -3,6 +3,25 @@ package jellicent.task;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Represents a list of tasks in the Jellicent application.
+ * <p>
+ * A {@code TaskList} manages a collection of {@link Task} objects, providing
+ * methods to add, remove, mark as done/undone, retrieve tasks by index, and
+ * iterate over the list. Task indices used in public methods are 1-based, while
+ * internal storage uses 0-based indexing.
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     TaskList tasks = new TaskList();
+ *     tasks.add(new ToDo("Read a book"));
+ *     tasks.add(new Deadline("Submit report", LocalDateTime.of(2026, 2, 12, 23, 59)));
+ *     Task task = tasks.markDone(1); // Marks the first task as done
+ *     System.out.println(task);
+ * </pre>
+ * </p>
+ */
 public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> tasks;
     private static final int ONE_BASED_TO_ZERO_BASED_OFFSET = 1;

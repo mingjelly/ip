@@ -5,6 +5,18 @@ import java.lang.StringBuilder;
 import jellicent.task.Task;
 import jellicent.task.TaskList;
 
+/**
+ * Handles all user interface interactions in Jellicent.
+ *
+ * This class is responsible for generating formatted messages to display
+ * to the user, including greetings, farewells, task listings, and
+ * notifications about task operations such as adding, deleting, marking,
+ * and finding tasks. It also formats messages when no tasks or matching
+ * tasks are found.
+ *
+ * All display strings are formatted consistently and use constants for
+ * common values such as newlines, task separators, and indexing offsets.
+ */
 public class Ui {
     private static final int NO_TASKS = 0;
     private static final int DISPLAY_INDEX_OFFSET = 1;

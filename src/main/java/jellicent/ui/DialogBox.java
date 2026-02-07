@@ -16,9 +16,29 @@ import javafx.scene.layout.HBox;
 import jellicent.command.CommandType;
 
 /**
- * Represents a dialog box consisting of an ImageView to represent the speaker's face
- * and a label containing text from the speaker.
+ * Represents a dialog box in the UI consisting of a speaker's image and text.
+ * <p>
+ * A {@code DialogBox} contains an {@link ImageView} to represent the speaker's face
+ * and a {@link Label} to display the speaker's text. It can be used to display
+ * messages from the user or from Jellicent, and supports styling based on
+ * {@link jellicent.command.CommandType} for different types of commands.
+ * </p>
+ * <p>
+ * This class provides static factory methods to easily create user and Jellicent
+ * dialog boxes:
+ * <ul>
+ *     <li>{@link #getUserDialog(String, Image)}</li>
+ *     <li>{@link #getJellicentDialog(String, Image)}</li>
+ *     <li>{@link #getJellicentDialog(String, Image, CommandType)}</li>
+ * </ul>
+ * </p>
+ * Example usage:
+ * <pre>
+ *     Image userImage = new Image("user.png");
+ *     DialogBox userDialog = DialogBox.getUserDialog("Hello!", userImage);
+ * </pre>
  */
+
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;

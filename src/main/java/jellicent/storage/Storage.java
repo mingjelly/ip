@@ -11,7 +11,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * Handles loading and saving of task data to and from a file.
+ * <p>
+ * The {@code Storage} class is responsible for reading task data from a file
+ * and writing task data back to a file. It interacts with {@link jellicent.task.TaskList}
+ * and {@link jellicent.task.Task}, using their string representations for storage.
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     Storage storage = new Storage("data/tasks.txt");
+ *     TaskList tasks = new TaskList();
+ *     storage.saveListDataIntoFile(tasks); // save tasks
+ *     ArrayList<String> rawData = storage.loadFileDataIntoList(); // load tasks
+ * </pre>
+ * </p>
+ */
 public class Storage {
     private final String filePath;
 

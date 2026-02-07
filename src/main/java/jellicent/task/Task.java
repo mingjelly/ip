@@ -3,6 +3,25 @@ package jellicent.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a generic task in the Jellicent application.
+ * <p>
+ * A {@code Task} stores a description and a completion status, and provides
+ * methods for formatting date/time for display or storage, checking if the task
+ * contains a keyword, and marking the task as done or undone. Concrete task types
+ * like {@link ToDo}, {@link Deadline}, and {@link Event} extend this class and
+ * implement the {@link #toFileString()} method for file persistence.
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     Task todo = new ToDo("Read a book");
+ *     System.out.println(todo); // prints [ ] Read a book
+ *     todo.setDone();
+ *     System.out.println(todo); // prints [X] Read a book
+ * </pre>
+ * </p>
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
