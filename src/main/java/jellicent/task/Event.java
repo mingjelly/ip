@@ -19,8 +19,11 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "E|" + (super.isDone ? DONE : NOT_DONE) + "|" + super.description
-                + "|" + storeDateTime(this.from) + "|" + storeDateTime(this.to);
+        String status = String.valueOf(super.isDone ? DONE : NOT_DONE);
+        String fromString = storeDateTime(this.from);
+        String toString = storeDateTime(this.to);
+        return "E|" + status + "|" + super.description
+                + "|" + fromString + "|" + toString;
     }
 
     @Override

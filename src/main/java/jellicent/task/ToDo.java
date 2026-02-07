@@ -8,13 +8,15 @@ public class ToDo extends Task {
 
     public ToDo(String description, int marked) {
         super(description);
-        if (marked == DONE) {this.setDone();}
+        if (marked == DONE) {
+            this.setDone();
+        }
     }
 
     @Override
     public String toFileString() {
-
-        return "T|" + (super.isDone ? DONE : NOT_DONE) + "|" + super.description;
+        String status = String.valueOf(super.isDone ? DONE : NOT_DONE);
+        return "T|" + status + "|" + super.description;
     }
 
     @Override
