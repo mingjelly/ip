@@ -35,16 +35,6 @@ public class Parser {
             CommandType.FIND, "OOPS! Find command requires a search word!"
     );
 
-    /**
-     * Reads from file or user input and converts into LocalDateTime object.
-     *
-     * @param dateTime The string read from file or user input.
-     * @return LocalDateTime for further processing.
-     */
-    private static LocalDateTime stringToDateTime(String dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return LocalDateTime.parse(dateTime, formatter);
-    }
 
     /**
      * Converts loaded data into tasks.
@@ -72,7 +62,31 @@ public class Parser {
             taskList.add(task);
         }
         return taskList;
+    }
 
+    /**
+     * Converts a single input line into a command during program execution.
+     *
+     * @param string user input to tell the program what to do.
+     *
+     * @return Executable Command for program to perform various actions.
+     */
+    public static Command userInputIntoCommand(String string) throws ParserException {
+        String[] commandInfo = string.split(" ", 2);
+        // What if parseKeyCommand size is < 0
+        CommandType keyCommand = parseKeyCommand(commandInfo[0]);
+        return switch (keyCommand) {
+            case BYE -> new ByeCommand();
+            case LIST -> new ListCommand();
+            case MARK -> parseMarkCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case UNMARK -> parseUnmarkCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case DELETE -> parseDeleteCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case TODO -> new TodoCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case EVENT -> parseEventCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case DEADLINE -> parseDeadlineCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case FIND -> new FindCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            default -> throw new ParserException("Unknown Command!");
+        };
     }
 
     private static int parseMark(String markString) throws ParserException {
@@ -118,32 +132,6 @@ public class Parser {
             throw new ParserException("Saved date time is in invalid format.");
         }
     }
-
-    /**
-     * Converts a single input line into a command during program execution.
-     *
-     * @param string user input to tell the program what to do.
-     *
-     * @return Executable Command for program to perform various actions.
-     */
-    public static Command userInputIntoCommand(String string) throws ParserException {
-        String[] commandInfo = string.split(" ", 2);
-        // What if parseKeyCommand size is < 0
-        CommandType keyCommand = parseKeyCommand(commandInfo[0]);
-        return switch (keyCommand) {
-            case BYE -> new ByeCommand();
-            case LIST -> new ListCommand();
-            case MARK -> parseMarkCommand(getArgumentOrThrow(commandInfo, keyCommand));
-            case UNMARK -> parseUnmarkCommand(getArgumentOrThrow(commandInfo, keyCommand));
-            case DELETE -> parseDeleteCommand(getArgumentOrThrow(commandInfo, keyCommand));
-            case TODO -> new TodoCommand(getArgumentOrThrow(commandInfo, keyCommand));
-            case EVENT -> parseEventCommand(getArgumentOrThrow(commandInfo, keyCommand));
-            case DEADLINE -> parseDeadlineCommand(getArgumentOrThrow(commandInfo, keyCommand));
-            case FIND -> new FindCommand(getArgumentOrThrow(commandInfo, keyCommand));
-            default -> throw new ParserException("Unknown Command!");
-        };
-    }
-
 
     private static CommandType parseKeyCommand(String keyCommand) throws ParserException {
         try {
@@ -235,6 +223,18 @@ public class Parser {
                     "Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
         }
     }
+
+    /**
+     * Reads from file or user input and converts into LocalDateTime object.
+     *
+     * @param dateTime The string read from file or user input.
+     * @return LocalDateTime for further processing.
+     */
+    private static LocalDateTime stringToDateTime(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        return LocalDateTime.parse(dateTime, formatter);
+    }
+
 }
 
 
