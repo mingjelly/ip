@@ -95,8 +95,8 @@ public class Parser {
      * Converts a single input line into a command during program execution.
      *
      * @param string user input to tell the program what to do.
-     *
      * @return Executable Command for program to perform various actions.
+     * @throws ParserException for any parsing issues within the code.
      */
     public static Command userInputIntoCommand(String string) throws ParserException {
         String[] commandInfo = string.split(" ", 2);
@@ -249,12 +249,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Reads from file or user input and converts into LocalDateTime object.
-     *
-     * @param dateTime The string read from file or user input.
-     * @return LocalDateTime for further processing.
-     */
     private static LocalDateTime stringToDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return LocalDateTime.parse(dateTime, formatter);

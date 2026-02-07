@@ -34,7 +34,6 @@ public class TaskList implements Iterable<Task> {
      * Adds a task into the task list.
      *
      * @param task Task received from user input.
-     *
      * @return Task for further processing if required.
      */
     public Task add(Task task) {
@@ -46,7 +45,6 @@ public class TaskList implements Iterable<Task> {
      * Mark the specified task as done.
      *
      * @param num Number index to signify which of the tasks in the list to mark.
-     *
      * @return Task for further processing if required.
      */
     public Task markDone(int num) {
@@ -59,7 +57,6 @@ public class TaskList implements Iterable<Task> {
      * Mark the specified task as undone.
      *
      * @param num Number index to signify which of the tasks in the list to unmark.
-     *
      * @return Task for further processing if required.
      */
     public Task markUndone(int num) {
@@ -72,7 +69,6 @@ public class TaskList implements Iterable<Task> {
      * Remove the specified task from task list.
      *
      * @param num Number index to signify which of the tasks in the list to remove.
-     *
      * @return Task for further processing if required.
      */
     public Task remove(int num) {
@@ -92,7 +88,6 @@ public class TaskList implements Iterable<Task> {
      * Returns the task specified from the task list.
      *
      * @param idx 0-indexed index to get the task, similar to ArrayList.
-     *
      * @return Task at the specified index.
      */
     public Task get(int idx) {

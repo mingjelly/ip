@@ -39,6 +39,7 @@ public class Storage {
      * Saves task data into a file (text file).
      *
      * @param tasks Task data to be saved.
+     * @throws IOException when the file cannot be found
      */
     public void saveListDataIntoFile(TaskList tasks) throws IOException {
         // Initialise file

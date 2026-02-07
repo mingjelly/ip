@@ -37,7 +37,6 @@ public abstract class Task {
      * Converts the LocalDateTime into a readable string forward for toString() ui.
      *
      * @param dateTime DateTime from initialisation of tasks like Deadline/Event.
-     *
      * @return String format for ui.
      */
     protected String readDateTime(LocalDateTime dateTime) {
@@ -50,7 +49,6 @@ public abstract class Task {
      * Converts DateTime into appropriate format for saving and storing into file.
      *
      * @param dateTime DateTime of tasks like Deadline/Event.
-     *
      * @return String format for writing dateTime into file.
      */
     protected String storeDateTime (LocalDateTime dateTime) {
@@ -62,7 +60,6 @@ public abstract class Task {
      * Checks if the string is found in the description of a string.
      *
      * @param string Description of the string.
-     *
      * @return True if the string is found.
      */
     public boolean contains(String string) {
@@ -97,5 +94,8 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Converts the current class to the appropriate file string for storage.
+     */
     public abstract String toFileString();
 }
