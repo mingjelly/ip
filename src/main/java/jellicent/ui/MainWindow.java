@@ -58,6 +58,8 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setJellicent(Jellicent j) {
+        assert jellicent != null: "Jellicent should not be null!";
+
         jellicent = j;
     }
 

@@ -42,6 +42,9 @@ public class Ui {
      * @return Formatted list message for display.
      */
     public String listTasks(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null";
+        assert tasks.size() > 0 :  "There must me tasks in the list";
+
         StringBuilder taskMsg = new StringBuilder();
         taskMsg.append("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -61,6 +64,8 @@ public class Ui {
      * @return Formatted mark message for display.
      */
     public String markDone(Task task) {
+        assert task != null : "Task should not be null";
+
         return "Nice! I've marked this task as done:\n" + task;
     }
 
@@ -71,6 +76,8 @@ public class Ui {
      * @return Formatted unmark message for display.
      */
     public String markUndone(Task task) {
+        assert task != null : "Task should not be null";
+
         return "Ok. I have marked this task as not done yet:\n" + task;
     }
 
@@ -81,6 +88,8 @@ public class Ui {
      * @return StringBuilder that shows number of tasks remaining.
      */
     private StringBuilder tasksLeft(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null";
+
         StringBuilder resString = new StringBuilder();
         return resString.append("Now you have ")
                 .append(tasks.size())
@@ -96,6 +105,9 @@ public class Ui {
      * @return Formatted add message for display.
      */
     public String addTask(TaskList tasks, Task task) {
+        assert tasks != null : "TaskList should not be null";
+        assert task != null : "Task should not be null";
+
         return "Got it. I've added this task:" + "\n"
                 + task + "\n" + tasksLeft(tasks);
     }
@@ -108,6 +120,8 @@ public class Ui {
      * @return Formatted delete message for display.
      */
     public String deleteTask(TaskList tasks, Task task) {
+        assert tasks != null : "TaskList should not be null";
+        assert task != null : "Task should not be null";
         return "Noted, I have removed this task:\n" + task
                 + "\n" + tasksLeft(tasks);
     }
@@ -119,6 +133,7 @@ public class Ui {
      * @return Formatted matching message for display.
      */
     public String matchingTasks(TaskList matchingTasks) {
+        assert matchingTasks != null : "TaskList should not be null";
         StringBuilder matchString = new StringBuilder();
         if (matchingTasks.size() == 0) {
             matchString.append("There are no matching tasks in your lists.");

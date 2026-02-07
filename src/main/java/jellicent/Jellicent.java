@@ -37,8 +37,13 @@ public class Jellicent {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input Input to be translated into the associated CommandResponse.
+     * @return CommandResponse to be executed.
      */
     public CommandResponse getCommandResponse(String input) {
+        assert input != null : "Input should not be null";
+
         String msg;
         CommandType commandType;
         try {

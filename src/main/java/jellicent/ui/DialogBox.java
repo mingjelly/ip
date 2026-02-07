@@ -26,6 +26,9 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     public DialogBox(String text, Image img) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -51,10 +54,15 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
+
         return new DialogBox(text, img);
     }
 
     private void changeDialogStyle(CommandType commandType) {
+        assert commandType != null : "CommandType should not be null";
+
         switch(commandType) {
             case TODO:      // fallthrough
             case DEADLINE:  // fallthrough
@@ -74,6 +82,10 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getJellicentDialog(String text, Image img, CommandType commandType) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
+        assert commandType != null : "CommandType should not be null";
+
         var db = new DialogBox(text, img);
         db.flip();
         db.changeDialogStyle(commandType);
@@ -81,6 +93,9 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getJellicentDialog(String text, Image img) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
+
         var db = new DialogBox(text, img);
         db.flip();
         return db;

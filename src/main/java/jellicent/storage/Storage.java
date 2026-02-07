@@ -25,6 +25,8 @@ public class Storage {
      * @param tasks Task data to be saved.
      */
     public void saveListDataIntoFile(TaskList tasks) throws IOException {
+        assert tasks != null : "TaskList should not be null";
+
         // Initialise file
         File file = new File(this.filePath);
         if (file.getParentFile() != null) {

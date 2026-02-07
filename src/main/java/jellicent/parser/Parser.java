@@ -29,7 +29,6 @@ public class Parser {
      * Reads from file or user input and converts into LocalDateTime object.
      *
      * @param dateTime The string read from file or user input.
-     *
      * @return LocalDateTime for further processing.
      */
     private static LocalDateTime stringToDateTime(String dateTime) {
@@ -41,10 +40,12 @@ public class Parser {
      * Converts loaded data into tasks.
      *
      * @param strings ArrayList of tasks' data from saved file.
-     *
      * @return Initialised TaskList at the start of program.
+     * @throws ParserException for incorrect text format from file and task types from text file
      */
     public static TaskList stringsIntoTasks(ArrayList<String> strings) throws ParserException {
+        assert strings != null : "Strings arraylist should not be null";
+
         TaskList taskList = new TaskList();
 
         // Iterate through all input
@@ -84,10 +85,12 @@ public class Parser {
      * Converts a single input line into a command during program execution.
      *
      * @param string user input to tell the program what to do.
-     *
      * @return Executable Command for program to perform various actions.
+     * @throws ParserException For user's incorrect inputs.
      */
     public static Command userInputIntoCommand(String string) throws ParserException {
+        assert string != null : "String should not be null";
+
         // Split the user input into key command and additional info
         String[] commandInfo = string.split(" ", 2);
 
