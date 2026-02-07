@@ -17,14 +17,11 @@ public class TodoCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        // Create new task object and add to task list
         Task newTask = new ToDo(description);
         tasks.add(newTask);
 
-        // Output ui for adding task
         String displayString = ui.addTask(tasks, newTask);
 
-        // Save tasks into text file
         try {
             storage.saveListDataIntoFile(tasks); //io exception?
         } catch (IOException e) {

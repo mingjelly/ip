@@ -45,7 +45,6 @@ public class Storage {
      * @return ArrayList of string data to be converted to tasks.
      */
     public ArrayList<String> loadFileDataIntoList() {
-        // Initialise file
         File file = new File(this.filePath);
 
         // Load file data into arraylist for further processing

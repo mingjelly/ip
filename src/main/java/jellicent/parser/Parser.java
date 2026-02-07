@@ -45,7 +45,6 @@ public class Parser {
     public static TaskList stringsIntoTasks(ArrayList<String> strings) throws ParserException {
         TaskList taskList = new TaskList();
 
-        // Iterate through all input
         for (String taskString : strings) {
             String[] dataArray = taskString.trim().split("\\|");
 
@@ -73,7 +72,6 @@ public class Parser {
      */
     public static Command userInputIntoCommand(String string) throws ParserException {
         String[] commandInfo = string.split(" ", 2);
-        // What if parseKeyCommand size is < 0
         CommandType keyCommand = parseKeyCommand(commandInfo[0]);
         return switch (keyCommand) {
             case BYE -> new ByeCommand();
@@ -116,7 +114,6 @@ public class Parser {
         } catch (DateTimeParseException e){
             throw new ParserException("Saved date time is in invalid format.");
         }
-        // Key concerns right now are: Magic numbers as well as stringToDateTime being ambiguous
     }
 
     private static Event parseEvent(String[] dataArray) throws ParserException {
