@@ -9,7 +9,7 @@ import jellicent.ui.Ui;
  * Represents an abstract command that can be executed in the Jellicent application.
  * <p>
  * A {@code Command} defines the structure for all concrete commands, including
- * execution logic via {@link #execute(TaskList, Ui, Storage)} and identifying
+ * execution logic via {@link #execute(EntryLists, Ui, Storage)} and identifying
  * its type via {@link #getCommandType()}.
  * </p>
  * <p>
@@ -29,7 +29,7 @@ public abstract class Command {
     /**
      * Executes the relevant commands and returns the relevant string display message.
      *
-     * @param tasklist The lists of tasks used in the program.
+     * @param entryLists The lists of entries such as tasks and places used in the program.
      * @param ui Main ui object.
      * @param storage Main object used in the program.
      * @return String display message for GUI.

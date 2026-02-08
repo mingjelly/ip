@@ -1,4 +1,4 @@
-package jellicent.task;  //same package as the class being tested
+package jellicent.task.entry;  //same package as the class being tested
 
 import jellicent.entry.task.ToDo;
 import org.junit.jupiter.api.Test;
