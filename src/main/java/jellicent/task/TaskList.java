@@ -3,10 +3,30 @@ package jellicent.task;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Represents a list of tasks in the Jellicent application.
+ * <p>
+ * A {@code TaskList} manages a collection of {@link Task} objects, providing
+ * methods to add, remove, mark as done/undone, retrieve tasks by index, and
+ * iterate over the list. Task indices used in public methods are 1-based, while
+ * internal storage uses 0-based indexing.
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     TaskList tasks = new TaskList();
+ *     tasks.add(new ToDo("Read a book"));
+ *     tasks.add(new Deadline("Submit report", LocalDateTime.of(2026, 2, 12, 23, 59)));
+ *     Task task = tasks.markDone(1); // Marks the first task as done
+ *     System.out.println(task);
+ * </pre>
+ * </p>
+ */
 public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> tasks;
     private static final int MIN_NUM = 1;
     private static final int MIN_IDX = 0;
+    private static final int ONE_BASED_TO_ZERO_BASED_OFFSET = 1;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -39,7 +59,7 @@ public class TaskList implements Iterable<Task> {
         if (num > this.tasks.size()) {
             throw new IllegalArgumentException("Number is greater than current tasklist size");
         }
-        Task task = this.tasks.get(num-1);
+        Task task = this.tasks.get(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
         task.setDone();
         return task;
     }
@@ -49,7 +69,7 @@ public class TaskList implements Iterable<Task> {
      *
      * @param num Number index to signify which of the tasks in the list to unmark.
      * @return Task for further processing if required.
-     *      * @throws IllegalArgumentException if num is less than 0 or greater than tasklist size.
+     * @throws IllegalArgumentException if num is less than 0 or greater than tasklist size.
      */
     public Task markUndone(int num) throws IllegalArgumentException {
         if (num < MIN_NUM) {
@@ -58,7 +78,7 @@ public class TaskList implements Iterable<Task> {
         if (num > this.tasks.size()) {
             throw new IllegalArgumentException("Number is greater than current tasklist size");
         }
-        Task task = this.tasks.get(num-1);
+        Task task = this.tasks.get(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
         task.setUndone();
         return task;
     }
@@ -76,7 +96,7 @@ public class TaskList implements Iterable<Task> {
         if (num > this.tasks.size()) {
             throw new IllegalArgumentException("Number is greater than current tasklist size");
         }
-        return this.tasks.remove(num-1);
+        return this.tasks.remove(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
     }
 
     /**
@@ -93,7 +113,6 @@ public class TaskList implements Iterable<Task> {
      *
      * @param idx 0-indexed index to get the task, similar to ArrayList.
      * @return Task at the specified index.
-     *
      */
     public Task get(int idx) {
         if (idx < MIN_IDX) {

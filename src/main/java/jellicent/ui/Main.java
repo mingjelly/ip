@@ -11,7 +11,27 @@ import javafx.stage.Stage;
 import jellicent.Jellicent;
 
 /**
- * A GUI for Duke using FXML.
+ * The main JavaFX GUI application for Jellicent.
+ * <p>
+ * The {@code Main} class extends {@link javafx.application.Application} and sets up
+ * the primary stage and scene using FXML. It initializes the {@link jellicent.Jellicent}
+ * instance with the default task file path and connects it to the {@link MainWindow} controller.
+ * </p>
+ * <p>
+ * Responsibilities include:
+ * <ul>
+ *     <li>Loading the FXML layout from {@code /view/MainWindow.fxml}</li>
+ *     <li>Setting up the primary stage with minimum dimensions</li>
+ *     <li>Initializing the controller with the Jellicent instance</li>
+ *     <li>Displaying the initial greeting message</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     java jellicent.ui.Main
+ * </pre>
+ * </p>
  */
 public class Main extends Application {
     private final String filePath = "data/tasks.txt";

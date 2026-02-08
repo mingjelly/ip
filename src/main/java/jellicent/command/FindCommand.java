@@ -5,6 +5,22 @@ import jellicent.task.Task;
 import jellicent.task.TaskList;
 import jellicent.ui.Ui;
 
+/**
+ * Represents a command to find tasks containing a specific keyword.
+ * <p>
+ * A {@code FindCommand} searches through a {@link jellicent.task.TaskList}
+ * for tasks whose descriptions contain the specified string. It collects all
+ * matching tasks into a new {@link jellicent.task.TaskList} and uses
+ * {@link jellicent.ui.Ui} to display the results to the user.
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     FindCommand cmd = new FindCommand("homework");
+ *     String result = cmd.execute(tasks, ui, storage);
+ * </pre>
+ * </p>
+ */
 public class FindCommand extends Command {
     private final String string;
 

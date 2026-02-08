@@ -5,6 +5,21 @@ import jellicent.task.Task;
 import jellicent.task.TaskList;
 import jellicent.ui.Ui;
 
+/**
+ * Represents a command to mark a task as not done.
+ * <p>
+ * An {@code UnmarkCommand} operates on a {@link TaskList} to mark a specific
+ * task as undone, identified by its task number. It interacts with {@link Ui}
+ * to provide feedback to the user and {@link Storage} for persisting changes.
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     UnmarkCommand cmd = new UnmarkCommand(3);
+ *     String result = cmd.execute(tasks, ui, storage);
+ * </pre>
+ * </p>
+ */
 public class UnmarkCommand extends Command {
     private final int markNum;
 

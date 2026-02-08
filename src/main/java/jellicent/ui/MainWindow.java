@@ -17,7 +17,31 @@ import jellicent.command.CommandResponse;
 import jellicent.command.CommandType;
 
 /**
- * Controller for the main GUI.
+ * Controller class for the main GUI of the Jellicent application.
+ * <p>
+ * The {@code MainWindow} class manages the JavaFX UI components defined in
+ * {@code MainWindow.fxml}, including the scrollable dialog container, user input
+ * field, and send button. It handles user input, displays dialog boxes for both
+ * the user and Jellicent, and manages the application exit sequence.
+ * </p>
+ * <p>
+ * Responsibilities include:
+ * <ul>
+ *     <li>Initializing UI components and binding properties for proper layout</li>
+ *     <li>Injecting the {@link Jellicent} instance for processing user commands</li>
+ *     <li>Displaying greeting messages upon application start</li>
+ *     <li>Handling user input and appending dialog boxes to the conversation view</li>
+ *     <li>Closing the application gracefully after a delay when a BYE command is received</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     MainWindow controller = fxmlLoader.getController();
+ *     controller.setJellicent(jellicentInstance);
+ *     controller.showGreeting();
+ * </pre>
+ * </p>
  */
 public class MainWindow extends AnchorPane {
     @FXML
