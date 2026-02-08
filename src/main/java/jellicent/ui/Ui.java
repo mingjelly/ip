@@ -5,7 +5,24 @@ import java.lang.StringBuilder;
 import jellicent.task.Task;
 import jellicent.task.TaskList;
 
+/**
+ * Handles all user interface interactions in Jellicent.
+ *
+ * This class is responsible for generating formatted messages to display
+ * to the user, including greetings, farewells, task listings, and
+ * notifications about task operations such as adding, deleting, marking,
+ * and finding tasks. It also formats messages when no tasks or matching
+ * tasks are found.
+ *
+ * All display strings are formatted consistently and use constants for
+ * common values such as newlines, task separators, and indexing offsets.
+ */
 public class Ui {
+    private static final int NO_TASKS = 0;
+    private static final int DISPLAY_INDEX_OFFSET = 1;
+    private static final int SINGULAR_TASK = 1;
+    private static final String NEWLINE = "\n";
+    private static final String TASK_SEPARATOR = ". ";
 
     /**
      * Returns greet message when program initialises.
@@ -13,7 +30,8 @@ public class Ui {
      * @return Formatted greeting message for display.
      */
     public String greetUser() {
-        return "Hello from Jellicent\nWhat can I do for you?";
+        return "Hello from Jellicent" +
+        NEWLINE + "What can I do for you?";
     }
 
     /**
@@ -46,9 +64,9 @@ public class Ui {
         taskMsg.append("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
-            taskMsg.append("\n")
-                    .append(i+1)
-                    .append(". ")
+            taskMsg.append(NEWLINE)
+                    .append(i + DISPLAY_INDEX_OFFSET)
+                    .append(TASK_SEPARATOR)
                     .append(currTask);
         }
         return taskMsg.toString();
@@ -84,7 +102,7 @@ public class Ui {
         StringBuilder resString = new StringBuilder();
         return resString.append("Now you have ")
                 .append(tasks.size())
-                .append(tasks.size() == 1 ? " task" : " tasks")
+                .append(tasks.size() == SINGULAR_TASK ? " task" : " tasks")
                 .append(" in the list.");
     }
 
@@ -96,8 +114,8 @@ public class Ui {
      * @return Formatted add message for display.
      */
     public String addTask(TaskList tasks, Task task) {
-        return "Got it. I've added this task:" + "\n"
-                + task + "\n" + tasksLeft(tasks);
+        return "Got it. I've added this task:" + NEWLINE
+                + task + NEWLINE + tasksLeft(tasks);
     }
 
     /**
@@ -108,8 +126,8 @@ public class Ui {
      * @return Formatted delete message for display.
      */
     public String deleteTask(TaskList tasks, Task task) {
-        return "Noted, I have removed this task:\n" + task
-                + "\n" + tasksLeft(tasks);
+        return "Noted, I have removed this task:" + NEWLINE + task
+                + NEWLINE + tasksLeft(tasks);
     }
 
     /**
@@ -120,15 +138,15 @@ public class Ui {
      */
     public String matchingTasks(TaskList matchingTasks) {
         StringBuilder matchString = new StringBuilder();
-        if (matchingTasks.size() == 0) {
+        if (matchingTasks.size() == NO_TASKS) {
             matchString.append("There are no matching tasks in your lists.");
         } else {
             matchString.append("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task currTask = matchingTasks.get(i);
-                matchString.append("\n")
-                        .append(i+1)
-                        .append(". ")
+                matchString.append(NEWLINE)
+                        .append(i + DISPLAY_INDEX_OFFSET)
+                        .append(TASK_SEPARATOR)
                         .append(currTask);
             }
         }

@@ -11,6 +11,25 @@ import jellicent.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Main controller class for Jellicent application.
+ *
+ * <p> This class acts as the central coordinator between the GUI, task storage, task management and command parsing.
+ * It is responsible for:
+ * <ul>
+ *     <li>Loading saved tasks from the storage file on initialization.</li>
+ *     <li>Parsing user input into commands using {@link Parser}.</li>
+ *     li>Executing commands to modify tasks, update storage, and produce
+ *     output messages via {@link Ui}.</li>
+ *     <li>Returning structured responses ({@link CommandResponse}) for the
+ *     GUI to display.</li>
+ * </ul>
+ *
+ * <p>Jellicent does not handle direct UI rendering or file storage itself;
+ * it delegates these responsibilities to {@link Ui} and {@link Storage}.
+ * This class is intended to be used by the GUI layer to process user input
+ * and provide corresponding responses.
+ * */
 public class Jellicent {
     private final Ui ui;
     private final Storage storage;
@@ -37,6 +56,9 @@ public class Jellicent {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input String input from user interface.
+     * @return CommandResponse associated with type of input.
      */
     public CommandResponse getCommandResponse(String input) {
         String msg;

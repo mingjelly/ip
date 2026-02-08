@@ -1,5 +1,20 @@
 package jellicent.task;
 
+/**
+ * Represents a simple task without a specific deadline.
+ * <p>
+ * A {@code ToDo} is a type of {@link Task} that only has a description
+ * and can be marked as done or not done.
+ * It provides methods to represent the task as a string for display
+ * or for storing in a file.
+ * </p>
+ * Example usage:
+ * <pre>
+ *     ToDo t = new ToDo("Read a book");
+ *     System.out.println(t);
+ * </pre>
+ */
+
 public class ToDo extends Task {
 
     public ToDo(String description) {
@@ -8,12 +23,15 @@ public class ToDo extends Task {
 
     public ToDo(String description, int marked) {
         super(description);
-        if (marked == 1) {this.setDone();}
+        if (marked == DONE) {
+            this.setDone();
+        }
     }
 
     @Override
     public String toFileString() {
-        return "T|" + (super.isDone ? 1 : 0) + "|" + super.description;
+        String status = String.valueOf(super.isDone ? DONE : NOT_DONE);
+        return "T|" + status + "|" + super.description;
     }
 
     @Override

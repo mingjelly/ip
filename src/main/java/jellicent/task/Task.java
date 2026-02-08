@@ -3,9 +3,30 @@ package jellicent.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a generic task in the Jellicent application.
+ * <p>
+ * A {@code Task} stores a description and a completion status, and provides
+ * methods for formatting date/time for display or storage, checking if the task
+ * contains a keyword, and marking the task as done or undone. Concrete task types
+ * like {@link ToDo}, {@link Deadline}, and {@link Event} extend this class and
+ * implement the {@link #toFileString()} method for file persistence.
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     Task todo = new ToDo("Read a book");
+ *     System.out.println(todo); // prints [ ] Read a book
+ *     todo.setDone();
+ *     System.out.println(todo); // prints [X] Read a book
+ * </pre>
+ * </p>
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected static final int DONE = 1;
+    protected static final int NOT_DONE = 0;
 
     public Task(String description) {
         this.description = description;
@@ -16,7 +37,6 @@ public abstract class Task {
      * Converts the LocalDateTime into a readable string forward for toString() ui.
      *
      * @param dateTime DateTime from initialisation of tasks like Deadline/Event.
-     *
      * @return String format for ui.
      */
     protected String readDateTime(LocalDateTime dateTime) {
@@ -29,7 +49,6 @@ public abstract class Task {
      * Converts DateTime into appropriate format for saving and storing into file.
      *
      * @param dateTime DateTime of tasks like Deadline/Event.
-     *
      * @return String format for writing dateTime into file.
      */
     protected String storeDateTime (LocalDateTime dateTime) {
@@ -41,7 +60,6 @@ public abstract class Task {
      * Checks if the string is found in the description of a string.
      *
      * @param string Description of the string.
-     *
      * @return True if the string is found.
      */
     public boolean contains(String string) {
@@ -76,5 +94,8 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
+    /**
+     * Converts the current class to the appropriate file string for storage.
+     */
     public abstract String toFileString();
 }

@@ -3,8 +3,28 @@ package jellicent.task;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Represents a list of tasks in the Jellicent application.
+ * <p>
+ * A {@code TaskList} manages a collection of {@link Task} objects, providing
+ * methods to add, remove, mark as done/undone, retrieve tasks by index, and
+ * iterate over the list. Task indices used in public methods are 1-based, while
+ * internal storage uses 0-based indexing.
+ * </p>
+ * <p>
+ * Example usage:
+ * <pre>
+ *     TaskList tasks = new TaskList();
+ *     tasks.add(new ToDo("Read a book"));
+ *     tasks.add(new Deadline("Submit report", LocalDateTime.of(2026, 2, 12, 23, 59)));
+ *     Task task = tasks.markDone(1); // Marks the first task as done
+ *     System.out.println(task);
+ * </pre>
+ * </p>
+ */
 public class TaskList implements Iterable<Task> {
     private final ArrayList<Task> tasks;
+    private static final int ONE_BASED_TO_ZERO_BASED_OFFSET = 1;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -14,7 +34,6 @@ public class TaskList implements Iterable<Task> {
      * Adds a task into the task list.
      *
      * @param task Task received from user input.
-     *
      * @return Task for further processing if required.
      */
     public Task add(Task task) {
@@ -26,11 +45,10 @@ public class TaskList implements Iterable<Task> {
      * Mark the specified task as done.
      *
      * @param num Number index to signify which of the tasks in the list to mark.
-     *
      * @return Task for further processing if required.
      */
     public Task markDone(int num) {
-        Task task = this.tasks.get(num-1);
+        Task task = this.tasks.get(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
         task.setDone();
         return task;
     }
@@ -39,11 +57,10 @@ public class TaskList implements Iterable<Task> {
      * Mark the specified task as undone.
      *
      * @param num Number index to signify which of the tasks in the list to unmark.
-     *
      * @return Task for further processing if required.
      */
     public Task markUndone(int num) {
-        Task task = this.tasks.get(num-1);
+        Task task = this.tasks.get(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
         task.setUndone();
         return task;
     }
@@ -52,11 +69,10 @@ public class TaskList implements Iterable<Task> {
      * Remove the specified task from task list.
      *
      * @param num Number index to signify which of the tasks in the list to remove.
-     *
      * @return Task for further processing if required.
      */
     public Task remove(int num) {
-        return this.tasks.remove(num-1);
+        return this.tasks.remove(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
     }
 
     /**
@@ -72,7 +88,6 @@ public class TaskList implements Iterable<Task> {
      * Returns the task specified from the task list.
      *
      * @param idx 0-indexed index to get the task, similar to ArrayList.
-     *
      * @return Task at the specified index.
      */
     public Task get(int idx) {
