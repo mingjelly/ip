@@ -1,7 +1,8 @@
 package jellicent.command;
 
+import jellicent.entry.EntryLists;
 import jellicent.storage.Storage;
-import jellicent.task.TaskList;
+import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
 /**
@@ -33,7 +34,7 @@ public abstract class Command {
      * @param storage Main object used in the program.
      * @return String display message for GUI.
      */
-    public abstract String execute(TaskList tasklist, Ui ui, Storage storage);
+    public abstract String execute(EntryLists entryLists, Ui ui, Storage storage);
 
     public abstract CommandType getCommandType();
 }

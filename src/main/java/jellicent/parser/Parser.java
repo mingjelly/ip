@@ -1,22 +1,11 @@
 package jellicent.parser;
 
-import jellicent.task.TaskList;
-import jellicent.task.ToDo;
-import jellicent.task.Deadline;
-import jellicent.task.Event;
-import jellicent.task.Task;
-
-import jellicent.command.ByeCommand;
-import jellicent.command.Command;
-import jellicent.command.CommandType;
-import jellicent.command.DeadlineCommand;
-import jellicent.command.DeleteCommand;
-import jellicent.command.EventCommand;
-import jellicent.command.ListCommand;
-import jellicent.command.MarkCommand;
-import jellicent.command.TodoCommand;
-import jellicent.command.UnmarkCommand;
-import jellicent.command.FindCommand;
+import jellicent.command.*;
+import jellicent.entry.task.TaskList;
+import jellicent.entry.task.ToDo;
+import jellicent.entry.task.Deadline;
+import jellicent.entry.task.Event;
+import jellicent.entry.task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,15 +42,20 @@ import java.util.Map;
  * </p>
  */
 public class Parser {
-    private static final Map<CommandType, String> ARG_REQUIRED_ERROR = Map.of(
-            CommandType.MARK, "OOPS! Mark command requires an integer after",
-            CommandType.UNMARK, "OOPS! Unmark command requires an integer after",
-            CommandType.DELETE, "OOPS! Delete command requires an integer after",
-            CommandType.TODO, "OOPS! The description of a todo cannot be empty.",
-            CommandType.EVENT, "OOPS! An event requires a description, /from and /to timeframe!",
-            CommandType.DEADLINE,"OOPS! A deadline requires a description and /by deadline!",
-            CommandType.FIND, "OOPS! Find command requires a search word!"
-    );
+    private static final Map<CommandType, String> ARG_REQUIRED_ERROR;
+
+    static {
+        ARG_REQUIRED_ERROR = Map.of(
+                CommandType.MARK, "OOPS! Mark command requires an integer after",
+                CommandType.UNMARK, "OOPS! Unmark command requires an integer after",
+                CommandType.DELETE, "OOPS! Delete command requires an integer after",
+                CommandType.TODO, "OOPS! The description of a todo cannot be empty.",
+                CommandType.EVENT, "OOPS! An event requires a description, /from and /to timeframe!",
+                CommandType.DEADLINE, "OOPS! A deadline requires a description and /by deadline!",
+                CommandType.FIND, "OOPS! Find command requires a search word!",
+                CommandType.VISIT, "Oops! Visit command requires a name!"
+        );
+    }
 
     /**
      * Converts loaded data into tasks.
@@ -116,6 +110,8 @@ public class Parser {
             case EVENT -> parseEventCommand(getArgumentOrThrow(commandInfo, keyCommand));
             case DEADLINE -> parseDeadlineCommand(getArgumentOrThrow(commandInfo, keyCommand));
             case FIND -> new FindCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case VISIT -> new VisitCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case PLACES -> new PlacesCommand();
             default -> throw new ParserException("Unknown Command!");
         };
     }

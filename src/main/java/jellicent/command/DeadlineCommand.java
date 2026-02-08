@@ -1,9 +1,10 @@
 package jellicent.command;
 
+import jellicent.entry.EntryLists;
 import jellicent.storage.Storage;
-import jellicent.task.Deadline;
-import jellicent.task.Task;
-import jellicent.task.TaskList;
+import jellicent.entry.task.Deadline;
+import jellicent.entry.task.Task;
+import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
 import java.io.IOException;
@@ -12,9 +13,9 @@ import java.time.LocalDateTime;
 /**
  * Represents a command to add a new Deadline task.
  * <p>
- * A {@code DeadlineCommand} creates a {@link jellicent.task.Deadline} with a
+ * A {@code DeadlineCommand} creates a {@link Deadline} with a
  * description and a due date/time, and adds it to the
- * {@link jellicent.task.TaskList}. It interacts with
+ * {@link TaskList}. It interacts with
  * {@link jellicent.ui.Ui} to display feedback to the user and with
  * {@link jellicent.storage.Storage} to persist the updated task list.
  * </p>
@@ -39,10 +40,14 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert tasks != null : "TaskList should not be null";
+    public String execute(EntryLists entryLists, Ui ui, Storage storage) {
+        assert entryLists != null : "EntryList should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
+
+        TaskList tasks = entryLists.tasks();
+        assert tasks != null : "TaskList should not be null";
+
 
         Task newTask = new Deadline(this.description, this.by);
         tasks.add(newTask);

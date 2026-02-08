@@ -3,10 +3,12 @@ package jellicent;
 import jellicent.command.Command;
 import jellicent.command.CommandResponse;
 import jellicent.command.CommandType;
+import jellicent.entry.EntryLists;
+import jellicent.entry.PlaceList;
 import jellicent.parser.Parser;
 import jellicent.parser.ParserException;
 import jellicent.storage.Storage;
-import jellicent.task.TaskList;
+import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 public class Jellicent {
     private final Ui ui;
     private final Storage storage;
-    private final TaskList tasks;
+    private final EntryLists entryLists;
 
     /**
      * Main controller class for Jellicent application.
@@ -45,7 +47,8 @@ public class Jellicent {
         } catch (ParserException pe) {
             tasks = new TaskList();
         }
-        this.tasks = tasks;
+        PlaceList places = new PlaceList();
+        this.entryLists = new EntryLists(tasks, places);
     }
 
     /**
@@ -61,7 +64,7 @@ public class Jellicent {
         CommandType commandType;
         try {
             Command command = Parser.userInputIntoCommand(input);
-            msg = command.execute(tasks, ui, storage);
+            msg = command.execute(entryLists, ui, storage);
             commandType = command.getCommandType();
         } catch (ParserException e) {
             msg = ui.showError(e.getMessage());

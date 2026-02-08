@@ -32,5 +32,7 @@ public enum CommandType {
     EVENT,
     DELETE,
     FIND,
-    ERROR
+    ERROR,
+    VISIT,
+    PLACES
 }

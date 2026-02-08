@@ -1,4 +1,4 @@
-package jellicent.task;
+package jellicent.entry.task;
 
 /**
  * Represents a simple task without a specific deadline.

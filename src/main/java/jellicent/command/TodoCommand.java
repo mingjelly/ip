@@ -1,9 +1,10 @@
 package jellicent.command;
 
+import jellicent.entry.EntryLists;
 import jellicent.storage.Storage;
-import jellicent.task.Task;
-import jellicent.task.TaskList;
-import jellicent.task.ToDo;
+import jellicent.entry.task.Task;
+import jellicent.entry.task.TaskList;
+import jellicent.entry.task.ToDo;
 import jellicent.ui.Ui;
 
 import java.io.IOException;
@@ -11,8 +12,8 @@ import java.io.IOException;
 /**
  * Represents a command to add a new ToDo task.
  * <p>
- * A {@code TodoCommand} creates a {@link jellicent.task.ToDo} with the given
- * description and adds it to the {@link jellicent.task.TaskList}. It also
+ * A {@code TodoCommand} creates a {@link ToDo} with the given
+ * description and adds it to the {@link TaskList}. It also
  * interacts with {@link jellicent.ui.Ui} to display feedback to the user and
  * with {@link jellicent.storage.Storage} to persist the updated task list.
  * </p>
@@ -32,11 +33,14 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert tasks != null : "TaskList should not be null";
+    public String execute(EntryLists entryLists, Ui ui, Storage storage) {
+        assert entryLists != null : "EntryLists should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
-        // Create new task object and add to task list
+
+        TaskList tasks = entryLists.tasks();
+        assert tasks != null : "TaskList should not be null";
+
         Task newTask = new ToDo(description);
         tasks.add(newTask);
 

@@ -1,7 +1,8 @@
-package jellicent.task;
+package jellicent.entry.task;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 /**
  * Represents a list of tasks in the Jellicent application.
@@ -83,12 +84,6 @@ public class TaskList implements Iterable<Task> {
         return task;
     }
 
-    /**
-     * Remove the specified task from task list.
-     * @param num Number index to signify which of the tasks in the list to remove.
-     * @return Task for further processing if required.
-     * @throws IllegalArgumentException if num is less than 0 or greater than tasklist size.
-     */
     public Task remove(int num) {
         if (num < MIN_NUM) {
             throw new IllegalArgumentException("Number cannot be less than 0");
@@ -99,21 +94,6 @@ public class TaskList implements Iterable<Task> {
         return this.tasks.remove(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
     }
 
-    /**
-     * Returns the number of tasks currently in the task list.
-     *
-     * @return Number of tasks in the task list.
-     */
-    public int size() {
-        return this.tasks.size();
-    }
-
-    /**
-     * Returns the task specified from the task list.
-     *
-     * @param idx 0-indexed index to get the task, similar to ArrayList.
-     * @return Task at the specified index.
-     */
     public Task get(int idx) {
         if (idx < MIN_IDX) {
             throw new IllegalArgumentException("Number cannot be less than 0");
@@ -124,11 +104,14 @@ public class TaskList implements Iterable<Task> {
         return this.tasks.get(idx);
     }
 
+    public int size() {
+        return this.tasks.size();
+    }
+
     @Override
     public Iterator<Task> iterator() {
         return this.tasks.iterator();
     }
-
 }
 
 
