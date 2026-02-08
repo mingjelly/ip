@@ -1,6 +1,5 @@
 package jellicent.entry.task;  //same package as the class being tested
 
-import jellicent.entry.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

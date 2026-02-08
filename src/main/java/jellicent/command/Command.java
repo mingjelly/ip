@@ -2,7 +2,6 @@ package jellicent.command;
 
 import jellicent.entry.EntryLists;
 import jellicent.storage.Storage;
-import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
 /**

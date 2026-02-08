@@ -1,6 +1,5 @@
 package jellicent.entry.task;  //same package as the class being tested
 
-import jellicent.entry.task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
