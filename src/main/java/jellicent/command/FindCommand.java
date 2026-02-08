@@ -30,6 +30,10 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         TaskList matchingTasks = new TaskList();
         for (Task task: tasks) {
             if (task.contains(this.string)) {

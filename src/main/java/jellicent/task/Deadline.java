@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
  *     System.out.println(d);
  * </pre>
  */
-
 public class Deadline extends Task {
     protected LocalDateTime by;
 

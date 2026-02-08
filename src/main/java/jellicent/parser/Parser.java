@@ -63,14 +63,16 @@ public class Parser {
             CommandType.FIND, "OOPS! Find command requires a search word!"
     );
 
-
     /**
      * Converts loaded data into tasks.
      *
      * @param strings ArrayList of tasks' data from saved file.
      * @return Initialised TaskList at the start of program.
+     * @throws ParserException for incorrect text format from file and task types from text file
      */
     public static TaskList stringsIntoTasks(ArrayList<String> strings) throws ParserException {
+        assert strings != null : "Strings arraylist should not be null";
+
         TaskList taskList = new TaskList();
 
         for (String taskString : strings) {
@@ -99,6 +101,9 @@ public class Parser {
      * @throws ParserException for any parsing issues within the code.
      */
     public static Command userInputIntoCommand(String string) throws ParserException {
+        assert string != null : "String should not be null";
+
+        // Split the user input into key command and additional info
         String[] commandInfo = string.split(" ", 2);
         CommandType keyCommand = parseKeyCommand(commandInfo[0]);
         return switch (keyCommand) {
@@ -249,11 +254,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Reads from file or user input and converts into LocalDateTime object.
+     *
+     * @param dateTime The string read from file or user input.
+     * @return LocalDateTime for further processing.
+     */
     private static LocalDateTime stringToDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return LocalDateTime.parse(dateTime, formatter);
     }
 
 }
-
-

@@ -42,6 +42,8 @@ public class Storage {
      * @throws IOException when the file cannot be found
      */
     public void saveListDataIntoFile(TaskList tasks) throws IOException {
+        assert tasks != null : "TaskList should not be null";
+
         // Initialise file
         File file = new File(this.filePath);
         if (file.getParentFile() != null) {

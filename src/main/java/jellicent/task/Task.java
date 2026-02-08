@@ -40,6 +40,8 @@ public abstract class Task {
      * @return String format for ui.
      */
     protected String readDateTime(LocalDateTime dateTime) {
+        assert dateTime != null : "dateTime should not be null";
+
         // inputs dateTime and converts into the necessary string for internal use
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         return dateTime.format(formatter);
@@ -52,6 +54,8 @@ public abstract class Task {
      * @return String format for writing dateTime into file.
      */
     protected String storeDateTime (LocalDateTime dateTime) {
+        assert dateTime != null : "dateTime should not be null";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return dateTime.format(formatter);
     }
@@ -63,6 +67,8 @@ public abstract class Task {
      * @return True if the string is found.
      */
     public boolean contains(String string) {
+        assert string != null : "String should not be empty";
+
         return this.description.contains(string);
     }
 
