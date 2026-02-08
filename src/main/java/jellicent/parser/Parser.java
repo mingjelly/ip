@@ -64,17 +64,6 @@ public class Parser {
     );
 
     /**
-     * Reads from file or user input and converts into LocalDateTime object.
-     *
-     * @param dateTime The string read from file or user input.
-     * @return LocalDateTime for further processing.
-     */
-    private static LocalDateTime stringToDateTime(String dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return LocalDateTime.parse(dateTime, formatter);
-    }
-
-    /**
      * Converts loaded data into tasks.
      *
      * @param strings ArrayList of tasks' data from saved file.
@@ -265,8 +254,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Reads from file or user input and converts into LocalDateTime object.
+     *
+     * @param dateTime The string read from file or user input.
+     * @return LocalDateTime for further processing.
+     */
     private static LocalDateTime stringToDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return LocalDateTime.parse(dateTime, formatter);
     }
+
 }

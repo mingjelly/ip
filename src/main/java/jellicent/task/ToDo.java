@@ -14,7 +14,6 @@ package jellicent.task;
  *     System.out.println(t);
  * </pre>
  */
-
 public class ToDo extends Task {
 
     public ToDo(String description) {
