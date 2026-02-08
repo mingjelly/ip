@@ -87,6 +87,7 @@ public class DialogBox extends HBox {
             case TODO:      // fallthrough
             case DEADLINE:  // fallthrough
             case EVENT:
+            case VISIT:
                 dialog.getStyleClass().add("add-label");
                 break;
             case MARK:      // fallthrough

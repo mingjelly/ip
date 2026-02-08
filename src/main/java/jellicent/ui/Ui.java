@@ -2,8 +2,10 @@ package jellicent.ui;
 
 import java.lang.StringBuilder;
 
-import jellicent.task.Task;
-import jellicent.task.TaskList;
+import jellicent.entry.Place;
+import jellicent.entry.PlaceList;
+import jellicent.entry.task.Task;
+import jellicent.entry.task.TaskList;
 
 /**
  * Handles all user interface interactions in Jellicent.
@@ -167,6 +169,42 @@ public class Ui {
             }
         }
         return matchString.toString();
+    }
+
+
+    /**
+     * Returns formatted message when a place is added.
+     *
+     * @param place Place that was added to places.
+     * @return Formatted add message for display.
+     */
+    public String addPlace(Place place) {
+        assert place != null : "Place should not be null";
+
+        return "Got it. I've added this visit:" + NEWLINE
+                + place;
+    }
+
+    /**
+     * Returns list of all places that are currently stored in places.
+     *
+     * @param places Places to iterate through and list.
+     * @return Formatted list message for display.
+     */
+    public String listPlaces(PlaceList places) {
+        assert places != null : "TaskList should not be null";
+        assert places.size() > 0 :  "There must me tasks in the list";
+
+        StringBuilder placeMsg = new StringBuilder();
+        placeMsg.append("Here are the places you have visited:");
+        for (int i = 0; i < places.size(); i++) {
+            Place currPlace = places.get(i);
+            placeMsg.append(NEWLINE)
+                    .append(i + DISPLAY_INDEX_OFFSET)
+                    .append(TASK_SEPARATOR)
+                    .append(currPlace);
+        }
+        return placeMsg.toString();
     }
 
 }

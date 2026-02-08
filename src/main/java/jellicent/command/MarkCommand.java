@@ -1,14 +1,16 @@
 package jellicent.command;
 
+import jellicent.entry.EntryLists;
+
 import jellicent.storage.Storage;
-import jellicent.task.Task;
-import jellicent.task.TaskList;
+import jellicent.entry.task.Task;
+import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
 /**
  * Represents a command to mark a task as done.
  * <p>
- * A {@code MarkCommand} operates on a {@link jellicent.task.TaskList} to mark
+ * A {@code MarkCommand} operates on a {@link TaskList} to mark
  * a specific task as completed, identified by its task number. It interacts
  * with {@link jellicent.ui.Ui} to provide user feedback.
  * </p>
@@ -28,10 +30,13 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert tasks != null : "TaskList should not be null";
+    public String execute(EntryLists entryLists, Ui ui, Storage storage) {
+        assert entryLists != null : "EntryLists should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
+
+        TaskList tasks = entryLists.tasks();
+        assert tasks != null : "TaskList should not be null";
 
         try {
             Task markedTask = tasks.markDone(this.markNum);

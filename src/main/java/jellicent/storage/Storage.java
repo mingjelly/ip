@@ -1,7 +1,7 @@
 package jellicent.storage;
 
-import jellicent.task.TaskList;
-import jellicent.task.Task;
+import jellicent.entry.task.TaskList;
+import jellicent.entry.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,8 +15,8 @@ import java.util.Scanner;
  * Handles loading and saving of task data to and from a file.
  * <p>
  * The {@code Storage} class is responsible for reading task data from a file
- * and writing task data back to a file. It interacts with {@link jellicent.task.TaskList}
- * and {@link jellicent.task.Task}, using their string representations for storage.
+ * and writing task data back to a file. It interacts with {@link TaskList}
+ * and {@link Task}, using their string representations for storage.
  * </p>
  * <p>
  * Example usage:

@@ -1,7 +1,8 @@
 package jellicent.command;
 
+import jellicent.entry.EntryLists;
 import jellicent.storage.Storage;
-import jellicent.task.TaskList;
+import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
 /**
@@ -21,8 +22,8 @@ import jellicent.ui.Ui;
  */
 public class ByeCommand extends Command {
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
-        assert tasks != null : "TaskList should not be null";
+    public String execute(EntryLists entryLists, Ui ui, Storage storage) {
+        assert entryLists != null : "EntryLists should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
 
