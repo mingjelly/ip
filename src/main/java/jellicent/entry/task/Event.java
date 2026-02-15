@@ -33,7 +33,9 @@ public class Event extends Task {
 
     public Event(String description, LocalDateTime from, LocalDateTime to, int marked) {
         this(description, from, to);
-        if (marked == DONE) {this.setDone();}
+        if (marked == DONE) {
+            this.setDone();
+        }
     }
 
     @Override

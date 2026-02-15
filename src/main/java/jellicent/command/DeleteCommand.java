@@ -8,16 +8,19 @@ import jellicent.ui.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
+ *
  * <p>
- * A {@code DeleteCommand} removes a specific task from a
- * {@link TaskList}, identified by its task number.
- * It interacts with {@link jellicent.ui.Ui} to provide feedback to the user.
+ * A {@code DeleteCommand} removes the task at the specified index
+ * from the {@link TaskList} and returns a string message for display
+ * through the GUI indicating which task was deleted and the updated task list.
  * </p>
+ *
  * <p>
  * Example usage:
  * <pre>
- *     DeleteCommand cmd = new DeleteCommand(3);
- *     String result = cmd.execute(tasks, ui, storage);
+ *     DeleteCommand cmd = new DeleteCommand(2);
+ *     String displayMessage = cmd.execute(entryLists, ui, storage);
+ *     System.out.println(displayMessage);
  * </pre>
  * </p>
  */
@@ -41,6 +44,7 @@ public class DeleteCommand extends Command {
         return ui.deleteTask(tasks, deleteTask);
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.DELETE;
     }

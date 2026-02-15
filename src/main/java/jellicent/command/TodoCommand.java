@@ -54,6 +54,7 @@ public class TodoCommand extends Command {
         return displayString;
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.TODO;
     }

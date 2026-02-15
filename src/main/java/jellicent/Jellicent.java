@@ -71,6 +71,5 @@ public class Jellicent {
             commandType = CommandType.ERROR;
         }
         return new CommandResponse(msg, commandType);
-
     }
 }

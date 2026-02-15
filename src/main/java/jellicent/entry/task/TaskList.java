@@ -54,12 +54,7 @@ public class TaskList implements Iterable<Task> {
      * @throws IllegalArgumentException if num is less than 1 or greater than tasklist size.
      */
     public Task markDone(int num) {
-        if (num < MIN_NUM) {
-            throw new IllegalArgumentException("Number cannot be less than 0");
-        }
-        if (num > this.tasks.size()) {
-            throw new IllegalArgumentException("Number is greater than current tasklist size");
-        }
+        validateIndexOneBased(num);
         Task task = this.tasks.get(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
         task.setDone();
         return task;
@@ -73,37 +68,41 @@ public class TaskList implements Iterable<Task> {
      * @throws IllegalArgumentException if num is less than 0 or greater than tasklist size.
      */
     public Task markUndone(int num) throws IllegalArgumentException {
-        if (num < MIN_NUM) {
-            throw new IllegalArgumentException("Number cannot be less than 0");
-        }
-        if (num > this.tasks.size()) {
-            throw new IllegalArgumentException("Number is greater than current tasklist size");
-        }
+        validateIndexOneBased(num);
         Task task = this.tasks.get(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
         task.setUndone();
         return task;
     }
 
+    /**
+     * Removes the task at the specified 1-based index from the task list.
+     *
+     * @param num 1-based index of the task to remove.
+     * @return The removed Task.
+     * @throws IllegalArgumentException if the index is less than 1 or greater than the current task list size.
+     */
     public Task remove(int num) {
-        if (num < MIN_NUM) {
-            throw new IllegalArgumentException("Number cannot be less than 0");
-        }
-        if (num > this.tasks.size()) {
-            throw new IllegalArgumentException("Number is greater than current tasklist size");
-        }
+        validateIndexOneBased(num);
         return this.tasks.remove(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
     }
 
+    /**
+     * Retrieves the task at the specified 0-based index.
+     *
+     * @param idx 0-based index of the task.
+     * @return The Task at the specified index.
+     * @throws IllegalArgumentException if the index is less than 0 or greater than or equal to the current task list size.
+     */
     public Task get(int idx) {
-        if (idx < MIN_IDX) {
-            throw new IllegalArgumentException("Number cannot be less than 0");
-        }
-        if (idx >= this.tasks.size()) {
-            throw new IllegalArgumentException("Number is greater than current tasklist size");
-        }
+        validateIndexZeroBased(idx);
         return this.tasks.get(idx);
     }
 
+    /**
+     * Returns the number of tasks currently in the task list.
+     *
+     * @return Number of tasks.
+     */
     public int size() {
         return this.tasks.size();
     }
@@ -111,6 +110,24 @@ public class TaskList implements Iterable<Task> {
     @Override
     public Iterator<Task> iterator() {
         return this.tasks.iterator();
+    }
+
+    private void validateIndexOneBased(int num) {
+        if (num < MIN_NUM) {
+            throw new IllegalArgumentException("Number cannot be less than 1");
+        }
+        if (num > this.tasks.size()) {
+            throw new IllegalArgumentException("Number is greater than current tasklist size");
+        }
+    }
+
+    private void validateIndexZeroBased(int idx) {
+        if (idx < MIN_IDX) {
+            throw new IllegalArgumentException("Index cannot be less than 0");
+        }
+        if (idx >= tasks.size()) {
+            throw new IllegalArgumentException("Index is greater than current tasklist size");
+        }
     }
 }
 

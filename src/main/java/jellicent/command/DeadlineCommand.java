@@ -12,13 +12,14 @@ import java.time.LocalDateTime;
 
 /**
  * Represents a command to add a new Deadline task.
+ *
  * <p>
- * A {@code DeadlineCommand} creates a {@link Deadline} with a
- * description and a due date/time, and adds it to the
- * {@link TaskList}. It interacts with
- * {@link jellicent.ui.Ui} to display feedback to the user and with
- * {@link jellicent.storage.Storage} to persist the updated task list.
+ * A {@code DeadlineCommand} creates a {@link Deadline} task with a description
+ * and a due date/time, and adds it to the {@link TaskList}.
+ * Execution of this command returns a {@link CommandResponse} containing
+ * a message describing the result.
  * </p>
+ *
  * <p>
  * Example usage:
  * <pre>
@@ -26,7 +27,8 @@ import java.time.LocalDateTime;
  *         "Submit report",
  *         LocalDateTime.of(2026, 2, 12, 23, 59)
  *     );
- *     String result = cmd.execute(tasks, ui, storage);
+ *     CommandResponse response = cmd.execute(entryLists, storage);
+ *     System.out.println(response.message());
  * </pre>
  * </p>
  */
@@ -62,6 +64,7 @@ public class DeadlineCommand extends Command {
         return displayString;
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.DEADLINE;
     }

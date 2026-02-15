@@ -32,6 +32,7 @@ public class PlacesCommand extends Command {
         return ui.listPlaces(places);
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.LIST;
     }

@@ -64,6 +64,7 @@ public class EventCommand extends Command {
         return displayString;
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.EVENT;
     }

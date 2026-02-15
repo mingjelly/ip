@@ -46,6 +46,7 @@ public class UnmarkCommand extends Command {
         }
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.UNMARK;
     }

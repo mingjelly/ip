@@ -46,6 +46,7 @@ public class MarkCommand extends Command {
         }
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.MARK;
     }

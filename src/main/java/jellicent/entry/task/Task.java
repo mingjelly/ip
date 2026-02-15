@@ -34,33 +34,6 @@ public abstract class Task {
     }
 
     /**
-     * Converts the LocalDateTime into a readable string forward for toString() ui.
-     *
-     * @param dateTime DateTime from initialisation of tasks like Deadline/Event.
-     * @return String format for ui.
-     */
-    protected String readDateTime(LocalDateTime dateTime) {
-        assert dateTime != null : "dateTime should not be null";
-
-        // inputs dateTime and converts into the necessary string for internal use
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
-        return dateTime.format(formatter);
-    }
-
-    /**
-     * Converts DateTime into appropriate format for saving and storing into file.
-     *
-     * @param dateTime DateTime of tasks like Deadline/Event.
-     * @return String format for writing dateTime into file.
-     */
-    protected String storeDateTime (LocalDateTime dateTime) {
-        assert dateTime != null : "dateTime should not be null";
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return dateTime.format(formatter);
-    }
-
-    /**
      * Checks if the string is found in the description of a string.
      *
      * @param string Description of the string.
@@ -104,4 +77,32 @@ public abstract class Task {
      * Converts the current class to the appropriate file string for storage.
      */
     public abstract String toFileString();
+
+    /**
+     * Converts the LocalDateTime into a readable string forward for toString() ui.
+     *
+     * @param dateTime DateTime from initialisation of tasks like Deadline/Event.
+     * @return String format for ui.
+     */
+    protected String readDateTime(LocalDateTime dateTime) {
+        assert dateTime != null : "dateTime should not be null";
+
+        // inputs dateTime and converts into the necessary string for internal use
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return dateTime.format(formatter);
+    }
+
+    /**
+     * Converts DateTime into appropriate format for saving and storing into file.
+     *
+     * @param dateTime DateTime of tasks like Deadline/Event.
+     * @return String format for writing dateTime into file.
+     */
+    protected String storeDateTime (LocalDateTime dateTime) {
+        assert dateTime != null : "dateTime should not be null";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        return dateTime.format(formatter);
+    }
+
 }

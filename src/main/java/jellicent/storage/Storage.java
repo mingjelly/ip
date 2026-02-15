@@ -44,20 +44,24 @@ public class Storage {
     public void saveListDataIntoFile(TaskList tasks) throws IOException {
         assert tasks != null : "TaskList should not be null";
 
-        // Initialise file
         File file = new File(this.filePath);
+        ensureParentDirectoryExists(file);
+        writeTasksToFile(tasks, file);
+    }
+
+    private void ensureParentDirectoryExists(File file) {
         if (file.getParentFile() != null) {
             file.getParentFile().mkdirs();
         }
+    }
 
-        // Takes each task and writes line by line
+    private void writeTasksToFile(TaskList tasks, File file) throws IOException {
         try (FileWriter fileWriter = new FileWriter(file)) {
             for (Task task: tasks) {
-                fileWriter.write(task.toFileString() + "\n");
+                fileWriter.write(task.toFileString() + System.lineSeparator());
             }
         }
     }
-
     /**
      * Loads file data into an ArrayList for further processing.
      *
@@ -67,7 +71,7 @@ public class Storage {
         File file = new File(this.filePath);
 
         // Load file data into arraylist for further processing
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 data.add(scanner.nextLine());

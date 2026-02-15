@@ -13,6 +13,7 @@ public class VisitCommand extends Command {
         this.name = name;
     }
 
+    @Override
     public String execute(EntryLists entryLists, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         assert entryLists != null : "EntryLists should not be null";
         assert ui != null : "Ui should not be null";
@@ -26,6 +27,7 @@ public class VisitCommand extends Command {
         return ui.addPlace(newPlace);
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.VISIT;
     }

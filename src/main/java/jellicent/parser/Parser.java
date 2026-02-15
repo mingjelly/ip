@@ -15,34 +15,50 @@ import java.util.Map;
 
 /**
  * Provides parsing utilities for the Jellicent application.
+ *
  * <p>
  * The {@code Parser} class is responsible for converting raw input strings
  * or saved file data into {@link Task} objects or {@link Command} objects
- * that the application can execute. It also handles validation and throws
+ * that the application can execute. It handles validation and throws
  * {@link ParserException} for invalid formats or missing information.
- * </p>
- * <p>
- * Key functionalities include:
- * <ul>
- *     <li>Converting stored file strings into a {@link TaskList} via {@link #stringsIntoTasks(ArrayList)}</li>
- *     <li>Converting user input strings into executable {@link Command} objects via {@link #userInputIntoCommand(String)}</li>
- *     <li>Parsing and validating date/time strings for tasks</li>
- *     <li>Providing informative error messages when input is invalid or incomplete</li>
- * </ul>
- * </p>
- * <p>
- * Example usage:
- * <pre>
- *     ArrayList&lt;String&gt; savedData = storage.loadFileDataIntoList();
- *     TaskList tasks = Parser.stringsIntoTasks(savedData);
- *
- *     Command command = Parser.userInputIntoCommand("todo Read a book");
- *     String output = command.execute(tasks, ui, storage);
- * </pre>
  * </p>
  */
 public class Parser {
+
+    /**
+     * Maps commands to the corresponding argument-required error messages.
+     */
     private static final Map<CommandType, String> ARG_REQUIRED_ERROR;
+
+    private static final int SAVED_INDEX_TYPE = 0;
+    private static final int SAVED_INDEX_MARK = 1;
+    private static final int SAVED_INDEX_DESCRIPTION = 2;
+    private static final int SAVED_INDEX_DATETIME1 = 3;
+    private static final int SAVED_INDEX_DATETIME2 = 4;
+    private static final int SAVED_MIN_LENGTH_TODO = 3;
+    private static final int SAVED_MIN_LENGTH_DEADLINE = 4;
+    private static final int SAVED_MIN_LENGTH_EVENT = 5;
+    private static final int SAVED_MIN_DATA_LENGTH = 2;
+
+    private static final int INPUT_INDEX_KEYCOMMAND = 0;
+    private static final int INPUT_INDEX_DESCRIPTION = 0; // exclude keycommand
+    private static final int INPUT_INDEX_DATE1 = 1; // exclude keycommand
+    private static final int INPUT_INDEX_DATE2 = 2; // exclude keycommand
+    private static final int INPUT_MIN_LENGTH_DEADLINE = 2; // description + /by
+    private static final int INPUT_MIN_LENGTH_EVENT = 3; // description + /from + /to
+    private static final int INPUT_MAX_COMMAND_SPLIT = 2;
+    private static final int ARGUMENT_INDEX = 1;
+
+    private static final String REGEX_DELIMITER_DEADLINE = " /by ";
+    private static final String REGEX_DELIMITER_EVENT = " /from | /to ";
+    private static final String REGEX_DELIMITER_KEYCOMMAND_ARG = " ";
+    private static final String REGEX_DELIMITER_SAVED_ENTRY = "\\|";
+
+    private static final DateTimeFormatter INPUT_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    private static final DateTimeFormatter SAVED_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
     static {
         ARG_REQUIRED_ERROR = Map.of(
@@ -70,18 +86,7 @@ public class Parser {
         TaskList taskList = new TaskList();
 
         for (String taskString : strings) {
-            String[] dataArray = taskString.trim().split("\\|");
-
-            // Throw exception if only 1 word is read
-            if (dataArray.length < 2) {
-                throw new ParserException("Tasks are saved in incorrect format!");
-            }
-            Task task = switch (dataArray[0]) {
-                    case "T" -> parseTodo(dataArray);
-                    case "D" -> parseDeadline(dataArray);
-                    case "E" -> parseEvent(dataArray);
-                    default -> throw new ParserException("Unknown Task Type: " + dataArray[0]);
-                };
+            Task task = parseTaskLine(taskString);
             taskList.add(task);
         }
         return taskList;
@@ -98,8 +103,8 @@ public class Parser {
         assert string != null : "String should not be null";
 
         // Split the user input into key command and additional info
-        String[] commandInfo = string.split(" ", 2);
-        CommandType keyCommand = parseKeyCommand(commandInfo[0]);
+        String[] commandInfo = string.split(REGEX_DELIMITER_KEYCOMMAND_ARG, INPUT_MAX_COMMAND_SPLIT);
+        CommandType keyCommand = parseKeyCommand(commandInfo[INPUT_INDEX_KEYCOMMAND]);
         return switch (keyCommand) {
             case BYE -> new ByeCommand();
             case LIST -> new ListCommand();
@@ -116,6 +121,38 @@ public class Parser {
         };
     }
 
+    private static Task parseTaskLine(String taskString) throws ParserException {
+        String[] dataArray = tokenizeSavedEntry(taskString);
+        validateSavedDataPrimary(dataArray);
+        return parseTaskByType(dataArray);
+
+    }
+
+    private static String[] tokenizeSavedEntry(String taskString) {
+        return taskString.trim().split(REGEX_DELIMITER_SAVED_ENTRY);
+    }
+
+    private static void validateSavedDataPrimary(String[] dataArray) throws ParserException {
+        if (dataArray.length < SAVED_MIN_DATA_LENGTH) {
+            throw new ParserException("Tasks are saved in incorrect format!");
+        }
+    }
+
+    private static void validateMinLength(String[] dataArray, int length, String msg) throws ParserException {
+        if (dataArray.length < length) {
+            throw new ParserException(msg);
+        }
+    }
+
+    private static Task parseTaskByType(String[] dataArray) throws ParserException {
+        return switch (dataArray[SAVED_INDEX_TYPE]) {
+            case "T" -> parseTodo(dataArray);
+            case "D" -> parseDeadline(dataArray);
+            case "E" -> parseEvent(dataArray);
+            default -> throw new ParserException("Unknown Task Type: " + dataArray[SAVED_INDEX_TYPE]);
+        };
+    }
+
     private static int parseMark(String markString) throws ParserException {
         try {
             return Integer.parseInt(markString);
@@ -125,38 +162,33 @@ public class Parser {
     }
 
     private static ToDo parseTodo(String[] dataArray) throws ParserException {
-        if (dataArray.length < 3) {
-            throw new ParserException("Saved todo is missing either description or mark!");
-        }
-        return new ToDo(dataArray[2], parseMark(dataArray[1]));
+        validateMinLength(dataArray,
+                SAVED_MIN_LENGTH_TODO,
+                "Saved todo is missing either description or mark!");
+        String description = dataArray[SAVED_INDEX_DESCRIPTION];
+        int mark = parseMark(dataArray[SAVED_INDEX_MARK]);
+        return new ToDo(description, mark);
     }
 
     private static Deadline parseDeadline(String[] dataArray) throws ParserException {
-        if (dataArray.length < 4) {
-            throw new ParserException("Saved deadline is missing either description, mark, or datetime!");
-        }
-        try {
-            return new Deadline(dataArray[2],
-                    stringToDateTime(dataArray[3]),
-                    parseMark(dataArray[1]));
-
-        } catch (DateTimeParseException e){
-            throw new ParserException("Saved date time is in invalid format.");
-        }
+        validateMinLength(dataArray,
+                SAVED_MIN_LENGTH_DEADLINE,
+                "Saved deadline is missing either description, mark, or datetime!");
+        String description = dataArray[SAVED_INDEX_DESCRIPTION];
+        LocalDateTime byDate = parseSavedDateTime(dataArray[SAVED_INDEX_DATETIME1]);
+        int mark = parseMark(dataArray[SAVED_INDEX_MARK]);
+        return new Deadline(description, byDate, mark);
     }
 
     private static Event parseEvent(String[] dataArray) throws ParserException {
-        if (dataArray.length < 5) {
-            throw new ParserException("Saved event is missing either description, mark, or datetime!");
-        }
-        try {
-            return new Event(dataArray[2],
-                    stringToDateTime(dataArray[3]),
-                    stringToDateTime(dataArray[4]),
-                    parseMark(dataArray[1]));
-        } catch (DateTimeParseException e){
-            throw new ParserException("Saved date time is in invalid format.");
-        }
+        validateMinLength(dataArray,
+                SAVED_MIN_LENGTH_EVENT,
+                "Saved event is missing either description, mark, or datetime!");
+        String description = dataArray[SAVED_INDEX_DESCRIPTION];
+        LocalDateTime fromDate = parseSavedDateTime(dataArray[SAVED_INDEX_DATETIME1]);
+        LocalDateTime toDate = parseSavedDateTime(dataArray[SAVED_INDEX_DATETIME2]);
+        int mark = parseMark(dataArray[SAVED_INDEX_MARK]);
+        return new Event(description, fromDate, toDate, mark);
     }
 
     private static CommandType parseKeyCommand(String keyCommand) throws ParserException {
@@ -169,96 +201,81 @@ public class Parser {
 
 
     private static String getArgumentOrThrow(String[] commandInfo, CommandType keyCommand) throws ParserException {
-        if (commandInfo.length == 1) {
+        if (commandInfo.length <= ARGUMENT_INDEX) {
             throw new ParserException(ARG_REQUIRED_ERROR.get(keyCommand));
         }
-        return commandInfo[1];
+        return commandInfo[ARGUMENT_INDEX];
     }
 
     private static MarkCommand parseMarkCommand(String commandData) throws ParserException {
-        try {
-            int markNum = Integer.parseInt(commandData);
-            return new MarkCommand(markNum);
-        } catch (NumberFormatException nfe) {
-            throw new ParserException("Oops! Mark command requires an integer index number!");
-        }
+        int markNum = parseIndex(commandData, "Oops! Mark command requires an integer index number!");
+        return new MarkCommand(markNum);
     }
 
     private static UnmarkCommand parseUnmarkCommand(String commandData) throws ParserException {
-        try {
-            int markNum = Integer.parseInt(commandData);
-            return new UnmarkCommand(markNum);
-        } catch (NumberFormatException nfe) {
-            throw new ParserException("Oops! Unmark requires an integer index number!");
-        }
+        int markNum = parseIndex(commandData,"Oops! Unmark requires an integer index number!");
+        return new UnmarkCommand(markNum);
     }
 
     private static DeleteCommand parseDeleteCommand(String commandData) throws ParserException {
-        // Yield new command and throw exception if input after space is not integer
+        int deleteNum = parseIndex(commandData, "Oops! Delete requires an integer index number!");
+        return new DeleteCommand(deleteNum);
+    }
+
+    private static int parseIndex(String input, String errorMsg ) throws ParserException {
         try {
-            int deleteNum = Integer.parseInt(commandData);
-            return new DeleteCommand(deleteNum);
+            return Integer.parseInt(input);
         } catch (NumberFormatException nfe) {
-            throw new ParserException(
-                    "Oops! Delete requires an integer index number!");
+            throw new ParserException(errorMsg);
         }
     }
 
     private static EventCommand parseEventCommand(String commandData) throws ParserException {
-        String[] taskInfoList = commandData.split(" /from | /to ");
+        String[] taskInfoList = commandData.split(REGEX_DELIMITER_EVENT);
 
         // Throw exception if user inputs insufficient information
-        if (taskInfoList.length < 3) {
-            throw new ParserException(
-                    "OOPS! An event requires a description, /from and /to timeframe!");
-        } else {
-            String description = taskInfoList[0];
-            String fromString = taskInfoList[1];
-            String toString = taskInfoList[2];
+        validateMinLength(taskInfoList,
+                INPUT_MIN_LENGTH_EVENT,
+                "OOPS! An event requires a description, /from and /to timeframe!");
 
-            LocalDateTime fromDateTime = parseDateTime(fromString);
-            LocalDateTime toDateTime = parseDateTime(toString);
+        String description = taskInfoList[INPUT_INDEX_DESCRIPTION];
+        String fromString = taskInfoList[INPUT_INDEX_DATE1];
+        String toString = taskInfoList[INPUT_INDEX_DATE2];
 
-            return new EventCommand(description, fromDateTime, toDateTime);
-        }
+        LocalDateTime fromDateTime = parseInputDateTime(fromString);
+        LocalDateTime toDateTime = parseInputDateTime(toString);
+
+        return new EventCommand(description, fromDateTime, toDateTime);
     }
 
     private static DeadlineCommand parseDeadlineCommand(String commandData) throws ParserException {
-        String[] taskInfoList = commandData.split(" /by ");
+        String[] taskInfoList = commandData.split(REGEX_DELIMITER_DEADLINE);
 
-        // Throw exception if user inputs insufficient information
-        if (taskInfoList.length < 2) {
-            throw new ParserException(
-                    "OOPS! A deadline requires a description and /by deadline!");
-        } else {
-            // Separates the appropriate data from info
-            String description = taskInfoList[0];
-            String byString = taskInfoList[1];
+        validateMinLength(taskInfoList,
+                INPUT_MIN_LENGTH_DEADLINE,
+                "OOPS! A deadline requires a description and /by deadline!");
+        String description = taskInfoList[INPUT_INDEX_DESCRIPTION];
+        String byString = taskInfoList[INPUT_INDEX_DATE1];
 
-            LocalDateTime byDateTime = parseDateTime(byString);
-            return new DeadlineCommand(description, byDateTime);
-        }
+        LocalDateTime byDateTime = parseInputDateTime(byString);
+        return new DeadlineCommand(description, byDateTime);
     }
 
-    private static LocalDateTime parseDateTime(String dtString) throws ParserException{
+    private static LocalDateTime parseInputDateTime(String dtString) throws ParserException {
         try {
             return LocalDateTime.parse(
-                    dtString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                    dtString, INPUT_DATE_FORMAT);
         } catch (DateTimeParseException dtpe) {
             throw new ParserException(
                     "Date time is in invalid format! Please use dd/MM/yyyy HH:mm format!");
         }
     }
 
-    /**
-     * Reads from file or user input and converts into LocalDateTime object.
-     *
-     * @param dateTime The string read from file or user input.
-     * @return LocalDateTime for further processing.
-     */
-    private static LocalDateTime stringToDateTime(String dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return LocalDateTime.parse(dateTime, formatter);
+    private static LocalDateTime parseSavedDateTime(String dateTime) throws ParserException {
+        try {
+            return LocalDateTime.parse(dateTime, SAVED_DATE_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new ParserException("Saved date time is in invalid format");
+        }
     }
-
 }

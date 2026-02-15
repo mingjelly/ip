@@ -47,6 +47,7 @@ public class FindCommand extends Command {
         return ui.matchingTasks(matchingTasks);
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.FIND;
     }

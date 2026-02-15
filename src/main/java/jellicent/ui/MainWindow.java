@@ -61,6 +61,14 @@ public class MainWindow extends AnchorPane {
     private final Image jellicentImage = new Image(this.getClass().getResourceAsStream("/images/kuromi.png"));
     private final ImageView jellicentImageView = new ImageView(jellicentImage);
 
+    /**
+     * Initializes the dialog box UI elements after the FXML has been loaded.
+     * <p>
+     * Binds the vertical scroll of the scroll pane to the height of the dialog container,
+     * ensuring the scroll automatically moves as new messages are added.
+     * Also sets the size and preserves the aspect ratio for the user and Jellicent images.
+     * </p>
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -72,6 +80,13 @@ public class MainWindow extends AnchorPane {
         jellicentImageView.setPreserveRatio(true);
     }
 
+    /**
+     * Displays a greeting message from Jellicent in the dialog container.
+     * <p>
+     * Retrieves a greeting string from the {@link Ui} class and adds a
+     * Jellicent dialog box with the greeting text and image to the dialog container.
+     * </p>
+     */
     public void showGreeting() {
         Ui ui = new Ui();
         String greeting = ui.greetUser();
@@ -112,5 +127,4 @@ public class MainWindow extends AnchorPane {
             delay.play();
         }
     }
-
 }

@@ -45,6 +45,68 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Factory method to create a user DialogBox with the given text and image.
+     *
+     * @param text the text to display in the dialog box; must not be null
+     * @param img the image to display alongside the text; must not be null
+     * @return a new DialogBox instance representing the user's message
+     */
+    public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
+
+        return new DialogBox(text, img);
+    }
+
+    /**
+     * Creates a Jellicent dialog box with a specified {@link CommandType},
+     * flipping the dialog box so that the image appears on the left
+     * and styling it based on the command type.
+     *
+     * @param text the text content of the dialog; must not be null
+     * @param img the image to display in the dialog; must not be null
+     * @param commandType the type of command associated with this dialog; must not be null
+     * @return a {@code DialogBox} representing Jellicent's response with command-specific styling
+     */
+    public static DialogBox getJellicentDialog(String text, Image img, CommandType commandType) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
+        assert commandType != null : "CommandType should not be null";
+
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.changeDialogStyle(commandType);
+        return db;
+    }
+
+    /**
+     * Creates a standard Jellicent dialog box without a specific command type,
+     * flipping the dialog box so that the image appears on the left.
+     *
+     * @param text the text content of the dialog; must not be null
+     * @param img the image to display in the dialog; must not be null
+     * @return a {@code DialogBox} representing Jellicent's response
+     */
+    public static DialogBox getJellicentDialog(String text, Image img) {
+        assert text != null : "Text should not be null";
+        assert img != null : "Image should not be null";
+
+        var db = new DialogBox(text, img);
+        db.flip();
+        return db;
+    }
+
+    /**
+     * Creates a DialogBox with the specified text and image.
+     * <p>
+     * Loads the FXML layout for the dialog box, sets this object as its root and controller,
+     * and initializes the dialog text and display picture.
+     * </p>
+     *
+     * @param text the text to display in the dialog box; must not be null
+     * @param img the image to display alongside the text; must not be null
+     */
     public DialogBox(String text, Image img) {
         assert text != null : "Text should not be null";
         assert img != null : "Image should not be null";
@@ -73,13 +135,6 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        assert text != null : "Text should not be null";
-        assert img != null : "Image should not be null";
-
-        return new DialogBox(text, img);
-    }
-
     private void changeDialogStyle(CommandType commandType) {
         assert commandType != null : "CommandType should not be null";
 
@@ -101,25 +156,4 @@ public class DialogBox extends HBox {
                 // Do nothing
         }
     }
-
-    public static DialogBox getJellicentDialog(String text, Image img, CommandType commandType) {
-        assert text != null : "Text should not be null";
-        assert img != null : "Image should not be null";
-        assert commandType != null : "CommandType should not be null";
-
-        var db = new DialogBox(text, img);
-        db.flip();
-        db.changeDialogStyle(commandType);
-        return db;
-    }
-
-    public static DialogBox getJellicentDialog(String text, Image img) {
-        assert text != null : "Text should not be null";
-        assert img != null : "Image should not be null";
-
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
-    }
-
 }

@@ -30,6 +30,7 @@ public class ByeCommand extends Command {
         return ui.farewellUser();
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.BYE;
     }

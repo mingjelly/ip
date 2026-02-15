@@ -102,22 +102,6 @@ public class Ui {
     }
 
     /**
-     * Helper method that returns the number of tasks left.
-     *
-     * @param tasks TaskList that is currently used in the program.
-     * @return StringBuilder that shows number of tasks remaining.
-     */
-    private StringBuilder tasksLeft(TaskList tasks) {
-        assert tasks != null : "TaskList should not be null";
-
-        StringBuilder resString = new StringBuilder();
-        return resString.append("Now you have ")
-                .append(tasks.size())
-                .append(tasks.size() == SINGULAR_TASK ? " task" : " tasks")
-                .append(" in the list.");
-    }
-
-    /**
      * Returns formatted message when a task is added.
      *
      * @param tasks TaskList that is currently used in the program.
@@ -207,4 +191,13 @@ public class Ui {
         return placeMsg.toString();
     }
 
+    private StringBuilder tasksLeft(TaskList tasks) {
+        assert tasks != null : "TaskList should not be null";
+
+        StringBuilder resString = new StringBuilder();
+        return resString.append("Now you have ")
+                .append(tasks.size())
+                .append(tasks.size() == SINGULAR_TASK ? " task" : " tasks")
+                .append(" in the list.");
+    }
 }

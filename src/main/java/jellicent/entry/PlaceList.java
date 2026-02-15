@@ -35,6 +35,13 @@ public class PlaceList implements Iterable<Place> {
         return place;
     }
 
+    /**
+     * Removes a place from the list by its 1-based index.
+     *
+     * @param num 1-based index of the place to remove.
+     * @return The removed {@link Place} object.
+     * @throws IllegalArgumentException if num < 1 or num > size of the list.
+     */
     public Place remove(int num) {
         if (num < MIN_NUM) {
             throw new IllegalArgumentException("Number cannot be less than 0");
@@ -54,6 +61,13 @@ public class PlaceList implements Iterable<Place> {
         return this.places.size();
     }
 
+    /**
+     * Retrieves a place from the list by its 0-based index.
+     *
+     * @param idx 0-based index of the place to retrieve.
+     * @return The {@link Place} object at the given index.
+     * @throws IllegalArgumentException if idx < 0 or idx >= size of the list.
+     */
     public Place get(int idx) {
         if (idx < MIN_IDX) {
             throw new IllegalArgumentException("Number cannot be less than 0");

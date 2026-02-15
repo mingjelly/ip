@@ -32,6 +32,7 @@ public class ListCommand extends Command {
         return ui.listTasks(tasks);
     }
 
+    @Override
     public CommandType getCommandType() {
         return CommandType.LIST;
     }

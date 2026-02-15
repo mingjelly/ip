@@ -27,7 +27,9 @@ public class Deadline extends Task {
 
     public Deadline(String description, LocalDateTime by, int marked) {
         this(description, by);
-        if (marked == DONE) {this.setDone();}
+        if (marked == DONE) {
+            this.setDone();
+        }
     }
 
     @Override
