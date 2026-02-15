@@ -8,7 +8,7 @@ import jellicent.ui.Ui;
 /**
  * Represents a command to list all places.
  * <p>
- * A {@code ListCommand} interacts with a {@link PlacesList} to
+ * A {@code ListCommand} interacts with a {@link PlaceList} to
  * retrieve all places and uses {@link jellicent.ui.Ui} to display them to the user.
  * </p>
  * <p>

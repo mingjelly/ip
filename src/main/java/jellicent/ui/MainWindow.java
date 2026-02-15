@@ -97,7 +97,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Jellicent instance.
      *
-     * @params Jellicent input for MainWindow.
+     * @param j input for MainWindow.
      **/
     public void setJellicent(Jellicent j) {
         assert jellicent != null: "Jellicent should not be null!";
