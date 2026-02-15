@@ -59,7 +59,8 @@ public class DeadlineCommand extends Command {
         try {
             storage.saveListDataIntoFile(tasks); //io exception?
         } catch (IOException e) {
-            displayString += ui.showError("Failed to save task: " + e.getMessage());
+            displayString = ui.showError("Failed to save task: " + e.getMessage())
+                + displayString;
         }
         return displayString;
     }

@@ -6,6 +6,8 @@ import jellicent.entry.task.Task;
 import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Represents a command to mark a task as not done.
  * <p>
@@ -37,13 +39,22 @@ public class UnmarkCommand extends Command {
         TaskList tasks = entryLists.tasks();
         assert tasks != null : "TaskList should not be null";
 
+        String message;
         try {
             Task markedTask = tasks.markUndone(this.markNum);
-            return ui.markUndone(markedTask);
+            message = ui.markUndone(markedTask);
         }
-        catch (IndexOutOfBoundsException e) {
-            return "Oops! There are only " + tasks.size() + " tasks in the list.";
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                    "Oops! There are only " + tasks.size() + " tasks in the list.");
         }
+
+        try {
+            storage.saveListDataIntoFile(tasks);
+        } catch (IOException e) {
+            message = "Warning, failed to save tasks" + "\n" + message;
+        }
+        return message;
     }
 
     @Override

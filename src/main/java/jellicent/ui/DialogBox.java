@@ -141,15 +141,17 @@ public class DialogBox extends HBox {
         switch(commandType) {
             case TODO:      // fallthrough
             case DEADLINE:  // fallthrough
-            case EVENT:
-            case VISIT:
+            case EVENT:     // fallthrough
+            case VISIT:     // fallthrough
                 dialog.getStyleClass().add("add-label");
                 break;
             case MARK:      // fallthrough
-            case UNMARK:
+            case UNMARK:    // fallthrough
                 dialog.getStyleClass().add("marked-label");
                 break;
-            case DELETE:
+            case ERROR:     // fallthrough
+            case DELETE:    // fallthrough
+            case UNVISIT:   // fallthrough
                 dialog.getStyleClass().add("delete-label");
                 break;
             default:

@@ -6,6 +6,8 @@ import jellicent.entry.task.Task;
 import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Represents a command to delete a task from the task list.
  *
@@ -32,7 +34,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(EntryLists entryLists, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+    public String execute(EntryLists entryLists, Ui ui, Storage storage) {
         assert entryLists != null : "EntryLists should not be null";
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
@@ -40,8 +42,22 @@ public class DeleteCommand extends Command {
         TaskList tasks = entryLists.tasks();
         assert tasks != null : "TaskList should not be null";
 
-        Task deleteTask = tasks.remove(this.deleteNum);
-        return ui.deleteTask(tasks, deleteTask);
+        String message;
+        try {
+            Task deleteTask = tasks.remove(this.deleteNum);
+            message = ui.deleteTask(tasks, deleteTask);
+
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                    "Oops! There are only " + tasks.size() + " tasks in the list.");
+        }
+
+        try {
+            storage.saveListDataIntoFile(tasks);
+        } catch (IOException e) {
+            message = "Warning, failed to save tasks" + "\n" + message;
+        }
+        return message;
     }
 
     @Override

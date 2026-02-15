@@ -7,6 +7,8 @@ import jellicent.entry.task.Task;
 import jellicent.entry.task.TaskList;
 import jellicent.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Represents a command to mark a task as done.
  * <p>
@@ -38,12 +40,21 @@ public class MarkCommand extends Command {
         TaskList tasks = entryLists.tasks();
         assert tasks != null : "TaskList should not be null";
 
+        String message;
         try {
             Task markedTask = tasks.markDone(this.markNum);
-            return ui.markDone(markedTask);
-        } catch (IndexOutOfBoundsException e) {
-            return "Oops! There are only " + tasks.size() + " tasks in the list.";
+            message = ui.markDone(markedTask);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                    "Oops! There are only " + tasks.size() + " tasks in the list.");
         }
+
+        try {
+            storage.saveListDataIntoFile(tasks);
+        } catch (IOException e) {
+            message = "Warning, failed to save tasks" + "\n" + message;
+        }
+        return message;
     }
 
     @Override

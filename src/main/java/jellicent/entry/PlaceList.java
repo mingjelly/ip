@@ -43,12 +43,7 @@ public class PlaceList implements Iterable<Place> {
      * @throws IllegalArgumentException if num < 1 or num > size of the list.
      */
     public Place remove(int num) {
-        if (num < MIN_NUM) {
-            throw new IllegalArgumentException("Number cannot be less than 0");
-        }
-        if (num > this.places.size()) {
-            throw new IllegalArgumentException("Number is greater than current placelist size");
-        }
+        validateIndexOneBased(num);
         return this.places.remove(num - ONE_BASED_TO_ZERO_BASED_OFFSET);
     }
 
@@ -69,17 +64,31 @@ public class PlaceList implements Iterable<Place> {
      * @throws IllegalArgumentException if idx < 0 or idx >= size of the list.
      */
     public Place get(int idx) {
-        if (idx < MIN_IDX) {
-            throw new IllegalArgumentException("Number cannot be less than 0");
-        }
-        if (idx >= this.places.size()) {
-            throw new IllegalArgumentException("Number is greater than current tasklist size");
-        }
+        validateIndexZeroBased(idx);
         return this.places.get(idx);
     }
+
 
     @Override
     public Iterator<Place> iterator() {
         return this.places.iterator();
+    }
+
+    private void validateIndexOneBased(int num) {
+        if (num < MIN_NUM) {
+            throw new IllegalArgumentException("Number cannot be less than 1");
+        }
+        if (num > this.places.size()) {
+            throw new IllegalArgumentException("Number is greater than current tasklist size");
+        }
+    }
+
+    private void validateIndexZeroBased(int idx) {
+        if (idx < MIN_IDX) {
+            throw new IllegalArgumentException("Index cannot be less than 0");
+        }
+        if (idx >= this.places.size()) {
+            throw new IllegalArgumentException("Index is greater than current tasklist size");
+        }
     }
 }

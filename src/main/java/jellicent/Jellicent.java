@@ -66,7 +66,7 @@ public class Jellicent {
             Command command = Parser.userInputIntoCommand(input);
             msg = command.execute(entryLists, ui, storage);
             commandType = command.getCommandType();
-        } catch (ParserException e) {
+        } catch (ParserException | IllegalArgumentException e) {
             msg = ui.showError(e.getMessage());
             commandType = CommandType.ERROR;
         }
