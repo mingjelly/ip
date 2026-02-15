@@ -170,6 +170,29 @@ public class Ui {
     }
 
     /**
+     * Returns formatted message when a place has been removed (unvisited).
+     *
+     * @param places PlaceList after removal, used to display remaining places count.
+     * @param place Place that was removed.
+     * @return Formatted remove message for display.
+     */
+    public String removePlace(PlaceList places, Place place) {
+        assert places != null : "PlaceList should not be null";
+        assert place != null : "Place should not be null";
+
+        StringBuilder res = new StringBuilder();
+        res.append("Noted, I have removed this visit:")
+                .append(NEWLINE)
+                .append(place)
+                .append(NEWLINE)
+                .append("Now you have ")
+                .append(places.size())
+                .append(places.size() == SINGULAR_TASK ? " visit" : " visits")
+                .append(" in your list.");
+        return res.toString();
+    }
+
+    /**
      * Returns list of all places that are currently stored in places.
      *
      * @param places Places to iterate through and list.

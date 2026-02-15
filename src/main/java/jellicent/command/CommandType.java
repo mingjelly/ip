@@ -34,5 +34,6 @@ public enum CommandType {
     FIND,
     ERROR,
     VISIT,
-    PLACES
+    UNVISIT,
+    VISITS
 }

@@ -69,7 +69,8 @@ public class Parser {
                 CommandType.EVENT, "OOPS! An event requires a description, /from and /to timeframe!",
                 CommandType.DEADLINE, "OOPS! A deadline requires a description and /by deadline!",
                 CommandType.FIND, "OOPS! Find command requires a search word!",
-                CommandType.VISIT, "Oops! Visit command requires a name!"
+                CommandType.VISIT, "Oops! Visit command requires a name!",
+                CommandType.UNVISIT, "Oops! Unvisit command requires a name!"
         );
     }
 
@@ -116,7 +117,8 @@ public class Parser {
             case DEADLINE -> parseDeadlineCommand(getArgumentOrThrow(commandInfo, keyCommand));
             case FIND -> new FindCommand(getArgumentOrThrow(commandInfo, keyCommand));
             case VISIT -> new VisitCommand(getArgumentOrThrow(commandInfo, keyCommand));
-            case PLACES -> new PlacesCommand();
+            case UNVISIT -> parseUnvisitCommand(getArgumentOrThrow(commandInfo, keyCommand));
+            case VISITS -> new ListVisitsCommand();
             default -> throw new ParserException("Unknown Command!");
         };
     }
@@ -260,6 +262,12 @@ public class Parser {
         LocalDateTime byDateTime = parseInputDateTime(byString);
         return new DeadlineCommand(description, byDateTime);
     }
+
+    private static UnvisitCommand parseUnvisitCommand(String commandData) throws ParserException {
+        int deleteNum = parseIndex(commandData, "Oops! Unvisit requires an integer index number!");
+        return new UnvisitCommand(deleteNum);
+    }
+
 
     private static LocalDateTime parseInputDateTime(String dtString) throws ParserException {
         try {
