@@ -46,6 +46,7 @@ public class Main extends Application {
 
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Jellicent - Your Smart Chatbot");
             stage.setScene(scene);
 
             stage.setMinHeight(220);
