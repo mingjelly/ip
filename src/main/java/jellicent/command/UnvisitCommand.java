@@ -3,11 +3,8 @@ package jellicent.command;
 import jellicent.entry.EntryLists;
 import jellicent.entry.Place;
 import jellicent.entry.PlaceList;
-import jellicent.entry.task.Task;
 import jellicent.storage.Storage;
 import jellicent.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Represents a command to remove (unvisit) a place from the {@link PlaceList}.
